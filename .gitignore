@@ -1,0 +1,8 @@
+.idea
+*.DS_Store
+/node_modules
+/coverage
+sftp-config.json
+yarn.lock
+.subsplit
+.hugo_build.lock
