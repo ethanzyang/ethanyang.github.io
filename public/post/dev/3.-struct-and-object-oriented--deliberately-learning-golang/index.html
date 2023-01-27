@@ -1,0 +1,348 @@
+<!DOCTYPE html> 
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"><meta name="msapplication-TileColor" content="#1793d0">
+  <meta name="theme-color" content="#1793d0"><title>3. Struct 与 面向对象 |《 刻意学习 Golang 》 | Jerrkill - 为学日益为道日损</title>
+  <meta property="og:title" content="3. Struct 与 面向对象 |《 刻意学习 Golang 》 - Jerrkill - 为学日益为道日损">
+  <meta property="og:type" content="article">
+  
+  <meta property="article:published_time" content="2019-03-08T01:33:00&#43;08:00">
+  
+  
+  <meta property="article:modified_time" content="2019-03-08T01:33:00&#43;08:00">
+  
+  <meta name="keywords" content="Blog, Golang, PHP, blockchain, trading, life">
+  <meta name="description" content="3. Struct 与 面向对象 |《 刻意学习 Golang 》"><meta name="author" content="">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="stylesheet" type="text/css" href="/css/hulga.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/hulga-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="/manifest.json">
+</head><body>
+  <div id="main"><section class="hero is-primary shadow-hero ">
+  <div class="hero-head">
+    <nav class="navbar is-primary">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item " href="/">
+        Jerrkill - 为学日益为道日损
+      </a>
+      <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-end">
+        
+        <a class="navbar-item" href="/" title="index">首页</a>
+        
+        <a class="navbar-item" href="/archives/" title="archives">归档</a>
+        
+        <a class="navbar-item" href="/about/" title="about">关于</a>
+        
+        <a class="navbar-item" href="/tags/" title="tags">标签</a>
+        
+        <a class="navbar-item" href="/categories/" title="categories">类别</a>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+  </div>
+  <div class="hero-body">
+    <header class="container has-text-centered">
+      <h1 class="title post-title">
+        3. Struct 与 面向对象 |《 刻意学习 Golang 》
+      </h1>
+      <h2 class="subtitle"><time class="post-meta">2019/03/08</time> ・
+          
+            <span class="post-tag post-meta">
+              <a href="/categories/dev">Dev</a>
+            </span>
+          
+        </h2>
+      
+      <div class="tagbox post-meta">
+        
+        <span class="post-tag">
+          <a href="/tags/golang">#golang</a>
+        </span>
+        
+        <span class="post-tag">
+          <a href="/tags/%E5%88%BB%E6%84%8F%E5%AD%A6%E4%B9%A0golang">#刻意学习Golang</a>
+        </span>
+        
+      </div>
+      
+    </header>
+  </div>
+</section><section class="section">
+  <div class="container">
+    <div class="columns">
+      
+      <div class="column is-1 is-hidden-mobile"></div>
+      <div class="column is-8">
+      
+        <article class="content" id="post-content"><p>go 的变量是 <code>name type</code>, 老是写成 c 的 <code>type name</code>
+go 的 <code>type name struct</code>  c 的<code>typedef struct name</code></p>
+<h1 id="struct">struct</h1>
+<p>对比 PHP:
+PHP 中没有 <code>struct</code> 类型，这里对比 C 的 <code>struct</code></p>
+<blockquote>
+<ul>
+<li>支持匿名字段「嵌入字段」</li>
+<li>type = c 的 typedef</li>
+<li>初始化有所区别</li>
+</ul>
+</blockquote>
+<ul>
+<li>声明</li>
+<li>初始化</li>
+<li>访问</li>
+</ul>
+<p>先看一下 C 中的 <code>struct</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 结构体声明常用的两种
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 通过 typedef
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">Human</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="o">*</span><span class="n">pHuman</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 直接声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="n">Human</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">Staff</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Human</span><span class="o">*</span> <span class="n">human</span><span class="p">;</span> <span class="c1">// 指向结构体的指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Human</span> <span class="n">human</span><span class="p">;</span> <span class="c1">// 包含结构体
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">pHuman</span> <span class="n">human</span><span class="p">;</span> <span class="c1">// 包含指向结构体的指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">wage</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>再看 Go</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Human</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">age</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">tom</span> <span class="nx">Human</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 通过赋值初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">tom</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">tom</span><span class="p">.</span><span class="nx">age</span> <span class="p">=</span> <span class="s">&#34;Tom&#34;</span><span class="p">,</span> <span class="mi">18</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 详细初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">jerry</span> <span class="o">:=</span> <span class="nx">Human</span><span class="p">{</span><span class="nx">age</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span> <span class="nx">name</span><span class="p">:</span><span class="s">&#34;Jerry&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 按照结构体声明顺序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">peter</span> <span class="o">:=</span> <span class="nx">Human</span><span class="p">{</span><span class="s">&#34;Peter&#34;</span><span class="p">,</span> <span class="mi">34</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 通过 . 访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%s is %d old\n&#34;</span><span class="p">,</span> <span class="nx">tom</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">tom</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="匿名字段">匿名字段</h2>
+<p>匿名字段也叫「嵌入字段」顾名思义，嵌入到一个结构体的字段</p>
+<blockquote>
+<p>只提供类型，而不写字段名。『通过这个来定义』</p>
+</blockquote>
+<ul>
+<li>支持：类型、自定类型、结构体</li>
+<li>如果是结构体：隐式的引入这个结构体的字段到新结构体</li>
+<li>重复字段最外层优先原则，里层通过 隐式类型访问</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Staff</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Human</span> <span class="c1">// 隐式的引入 Human 的字段
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">wage</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">age</span> <span class="kt">float32</span> <span class="c1">// 覆盖 Human 的 age
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">tom</span> <span class="o">:=</span> <span class="nx">Staff</span><span class="p">{</span><span class="nx">Human</span><span class="p">{</span><span class="s">&#34;Tom&#34;</span><span class="p">,</span> <span class="mi">18</span><span class="p">},</span> <span class="mi">1000</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">jerr</span> <span class="o">:=</span> <span class="nx">Staff</span><span class="p">{</span><span class="nx">Human</span><span class="p">:</span><span class="nx">Human</span><span class="p">{</span><span class="nx">age</span><span class="p">:</span><span class="mi">32</span><span class="p">,</span> <span class="nx">name</span><span class="p">:</span><span class="s">&#34;Jerr&#34;</span><span class="p">},</span> <span class="nx">wage</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span> <span class="nx">age</span><span class="p">:</span> <span class="mf">32.5</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%s is %f old，%d years, wage is %d&#34;</span><span class="p">,</span> <span class="nx">tom</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">tom</span><span class="p">.</span><span class="nx">Human</span><span class="p">.</span><span class="nx">age</span><span class="p">,</span> <span class="nx">tom</span><span class="p">.</span><span class="nx">age</span><span class="p">,</span> <span class="nx">tom</span><span class="p">.</span><span class="nx">wage</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%s is %f old，%d years, wage is %d&#34;</span><span class="p">,</span> <span class="nx">jerr</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">jerr</span><span class="p">.</span><span class="nx">Human</span><span class="p">.</span><span class="nx">age</span><span class="p">,</span> <span class="nx">jerr</span><span class="p">.</span><span class="nx">age</span><span class="p">,</span> <span class="nx">jerr</span><span class="p">.</span><span class="nx">wage</span><span class="p">)</span>
+</span></span></code></pre></div><h1 id="面向对象">面向对象</h1>
+<p>看完了 go 的面相对象后，emmmm&hellip; 感觉有点颠覆。首先是告别 <code>class</code> 。 然后一系列的 <code>static public protected private</code> 都没有了，甚至是 <code>extends parent</code> 都省了。我现在还很不习惯&hellip; 魔术方法？构造函数？&hellip;且边学边看</p>
+<h2 id="methd">methd</h2>
+<blockquote>
+<p>&ldquo;A method is a function with an implicit first argument, called a receiver.&rdquo;</p>
+</blockquote>
+<p>这么理解呢，这么说
+一个 <code>method</code> 就是 function 的第一个『参数』是一个 <code>receiver</code> 「接收者,接收这个函数的是谁即是方法的所有者」<br>
+如果还没明白的话就再通俗一点</p>
+<blockquote>
+<p>receiver = class
+method = 成员函数</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 下面这个 function 是 ReceiverType (class) 的一个 method, 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// funcName 首字母大写是公有、小写是私有
+</span></span></span><span class="line"><span class="cl"><span class="c1">// ReceiverType 可以是结构体、自定义类型、内置类型「PS这个是真的骚」
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="nx">ReceiverType</span><span class="p">)</span> <span class="nf">funcName</span><span class="p">(</span><span class="nx">parameters</span><span class="p">)</span> <span class="p">{}</span>
+</span></span></code></pre></div><h2 id="指针-作为-receiver">指针 作为 receiver</h2>
+<p>go 知道我们需要调用或传递的是指针，你写值他会自动帮你去用指针。理解这个先来理解下面 c 代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">setZore</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 在 go 中可以理解为
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// go 自动给你变成 *a = 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 在 C 中必须传递地址 go 中可以是 setZore(x)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">setZore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>
+</span></span></code></pre></div><blockquote>
+<p>如果一个 method 的 receiver 是 *T, 你可以在一个 T 类型的实例变量 V 上面调用这个 method，而不需要 &amp;V 去调用这个 method</p>
+</blockquote>
+<blockquote>
+<p>如果一个 method 的 receiver 是 T，你可以在一个 T 类型的变量 P 上面调用这个 method，而不需要 P 去调用这个 method</p>
+</blockquote>
+<h2 id="继承跟重载">继承跟重载</h2>
+<p>继承跟重载都跟匿名字段一样的</p>
+<ul>
+<li>继承:如果匿名字段实现一个 method 包含这个匿名字段的结构体也能使用这个 method</li>
+<li>重写:在包含者上面重新定义这个 method,重写匿名字段的方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Human</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">age</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Employee</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Human</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">wage</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">h</span> <span class="o">*</span><span class="nx">Human</span><span class="p">)</span> <span class="nf">Say</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Hi, I am %s, My age is %d&#34;</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Employee 重写 Say
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Employee</span><span class="p">)</span> <span class="nf">Say</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Hi, I am %s, %d old year, wage is %d per mothn&#34;</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">age</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">wage</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></article>
+      </div>
+      
+      <div class="column is-hidden-mobile">
+        <div class="sidebar" id="toc">
+          
+          <div class="post post-toc" id="post-toc">
+            
+          </div>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+  </div><footer class="footer">
+  <div class="content has-text-centered">
+    <p>Powered by <a href="https://gohugo.io">Hugo</a>. Theme <a href="https://www.github.com/wlh320/hugo-theme-hulga">Hulga</a></p>
+    <p>Copyright © 2020 wlh. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+
+
+<script src="http://example.org/js/pwa.min.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script><script>
+addBackToTop({
+  diameter: 42,
+
+  backgroundColor: "#1793d0",
+
+  innerHTML: '<svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>',
+  textColor: '#fff'
+});
+</script>
+<script type="text/javascript">
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    
+    if ($navbarBurgers.length > 0) {
+      
+      $navbarBurgers.forEach(el => {
+        el.addEventListener('click', () => {
+          
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+          
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+  <link id="hlcss" rel="stylesheet" type="text/css">
+
+<script>
+  function addCss(url) {
+    var link = document.getElementById('hlcss');
+    link.href = url;
+  }
+  
+  var darkcss = "http://example.org/css/monokai.css"
+  
+  var lightcss = "http://example.org/css/monokailight.css"
+  
+  if (window.matchMedia('(prefers-color-scheme)').media === 'not all') {
+    addCss(lightcss);
+  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    addCss(darkcss);
+  } else {
+    addCss(lightcss);
+  }
+  window.matchMedia("(prefers-color-scheme: dark)").addListener(
+    e => e.matches && addCss(darkcss)
+  );
+  window.matchMedia("(prefers-color-scheme: light)").addListener(
+    e => e.matches && addCss(lightcss)
+  );
+</script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script><script>
+  anchors.options = {
+    placement: 'left',
+    
+    icon: '#'
+  };
+  anchors.add('.content h1, .content h2, .content h3');
+</script>
+
+
+  
+
+
+<link rel="stylesheet" type="text/css" href="http://example.org/css/toc.min.css"><script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.post-toc',
+        
+        contentSelector: '#post-content',
+        
+        headingSelector: 'h1, h2, h3',
+        collapseDepth:  0 ,
+        scrollSmooth: true,
+        positionFixedSelector: '.post-toc',
+        
+        
+        fixedSidebarOffset: 273,
+    });
+</script>
+
+
+</body>
+
+</html>

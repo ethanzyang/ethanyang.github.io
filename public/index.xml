@@ -5,6 +5,439 @@
     <link>http://example.org/</link>
     <description>Recent content on Jerrkill - 为学日益为道日损</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 21 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2021年1月21日 BTC 行情分析 | trading-analysis </title>
+      <link>http://example.org/post/trading/analysis/2021-01/2021-01-21-trading-analysis-of-btc/</link>
+      <pubDate>Thu, 21 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/analysis/2021-01/2021-01-21-trading-analysis-of-btc/</guid>
+      <description>引言 所谓技术就是“利用自然改造自然的方法、技能和手段的总和” 所谓技术分析就是以市场为研究对象 同时我还认为这一切都要以“科学的研究方法”为前提</description>
+    </item>
+    
+    <item>
+      <title>开启交易实盘的第三个月总结 | trading-practicing </title>
+      <link>http://example.org/post/trading/practicing/2020-07-23-trading-practicing-record/</link>
+      <pubDate>Thu, 23 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/practicing/2020-07-23-trading-practicing-record/</guid>
+      <description>实盘的第三个月 介于目前时间精力都极其有限，一切以长话短写。尽量避免主观性表达，以客观为主 同时这将作为月度总结的模板 资金管理策略 固定比率资金管</description>
+    </item>
+    
+    <item>
+      <title>2020年6月5日 BCH 行情分析 | trading-analysis </title>
+      <link>http://example.org/post/trading/analysis/2020-06/2020-06-06-trading-analysis-of-bch/</link>
+      <pubDate>Fri, 05 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/analysis/2020-06/2020-06-06-trading-analysis-of-bch/</guid>
+      <description>bch https://www.tradingview.com/x/MPaK1Ich/</description>
+    </item>
+    
+    <item>
+      <title>实盘交易记录 | trading-practicing </title>
+      <link>http://example.org/post/trading/practicing/2020-06-05-trading-practicing-record/</link>
+      <pubDate>Fri, 05 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/practicing/2020-06-05-trading-practicing-record/</guid>
+      <description>写在前面 这是第一次实盘实录过程，我将在这里做具体的说明跟记录以及总结，并且把我的经验作为持续改进新增到我的交易系统中去。 资金管理策略 交易计划</description>
+    </item>
+    
+    <item>
+      <title>《nginx 部署之——domain 转 path》</title>
+      <link>http://example.org/post/dev/nginx-config-about-domain-to-path/</link>
+      <pubDate>Sat, 23 May 2020 08:15:05 +0800</pubDate>
+      
+      <guid>http://example.org/post/dev/nginx-config-about-domain-to-path/</guid>
+      <description>写在前面 时间精力总是有限的，由于把原本用来学习研究技术的大部分时间都用于了学习「how to be a trader」技术相关的已经很久没更新了！ 遗憾啦</description>
+    </item>
+    
+    <item>
+      <title>2020年5月20日行情分析 | trading-analysis </title>
+      <link>http://example.org/post/trading/analysis/2020-05/2020-05-20-trading-analysis/</link>
+      <pubDate>Wed, 20 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/analysis/2020-05/2020-05-20-trading-analysis/</guid>
+      <description>分析 数字货币 btc 分析 预期及计划 如图中的做多做空计划 eos 股市 南方汇通 紫金银行</description>
+    </item>
+    
+    <item>
+      <title>2. 研判系统 | trading </title>
+      <link>http://example.org/post/trading/trading-system/2_judgment-stystem/</link>
+      <pubDate>Sat, 16 May 2020 01:50:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/trading-system/2_judgment-stystem/</guid>
+      <description>写在前面 研判系统的定义跟作用 定义： 处理分析图表得到具体的信息跟信号。 输出成预期 研判系统的分析处理过程应遵循以下原则： 尽可能的简单并符合逻辑 预</description>
+    </item>
+    
+    <item>
+      <title>8. 资金管理 | trading </title>
+      <link>http://example.org/post/trading/trading-bible/08_capital-management/</link>
+      <pubDate>Fri, 01 May 2020 13:42:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/trading-bible/08_capital-management/</guid>
+      <description>资金管理 资金管理的目的 生存——避免爆仓风险 亏损情况下减少头寸规模 巨大利润——产生几何级数增长的利润 盈利情况下扩大头寸规模 资金管理的模式 马丁格</description>
+    </item>
+    
+    <item>
+      <title>2020-04-29日 ETH 行情分析 | trading-analysis </title>
+      <link>http://example.org/post/trading/analysis/2020-04/2020-04-29-trading-analysis-of-eth/</link>
+      <pubDate>Wed, 29 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/analysis/2020-04/2020-04-29-trading-analysis-of-eth/</guid>
+      <description>研判系统 大级别定性（找趋势） 中级别找趋势 小级别找入场 我们先看 2h 级别： 指标背离之后向下寻找支撑 一次短期趋势线支撑住，反弹高度一般 二次在探短期趋</description>
+    </item>
+    
+    <item>
+      <title>2020-04-28日 ETH 行情分析 | trading-analysis </title>
+      <link>http://example.org/post/trading/analysis/2020-04/2020-04-28-trading-analysis-of-eth/</link>
+      <pubDate>Tue, 28 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/analysis/2020-04/2020-04-28-trading-analysis-of-eth/</guid>
+      <description>eth 分析 短期上攻失败 4h 收了螺旋桨视为需求衰竭的空头信号, 上方压力重重——空头信号（只有再次创出新高视为信号失败) 三重顶背离形成——空头信号（除</description>
+    </item>
+    
+    <item>
+      <title>2020-04-26日 ETH 行情分析 | trading-analysis </title>
+      <link>http://example.org/post/trading/analysis/2020-04/2020-04-26-trading-analysis-of-eth/</link>
+      <pubDate>Sun, 26 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/analysis/2020-04/2020-04-26-trading-analysis-of-eth/</guid>
+      <description>2020-04-26 行情分析 eth 周线： 周线级别如下图所示， 我们把「去年6月的高点」与「今年2月的高点」连线得到一条大级别的『下降趋势线』。 同理我们把「18年12</description>
+    </item>
+    
+    <item>
+      <title>打开交易世界的大门</title>
+      <link>http://example.org/post/trading/readme/</link>
+      <pubDate>Thu, 26 Mar 2020 10:53:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/readme/</guid>
+      <description>About 交易有段时间了，现在有机会开始真正去打开交易世界的大门，想了很久还是那句话 知识输出是最好的学习方式 为学日益，为道日损 所以决定把系统性的学习</description>
+    </item>
+    
+    <item>
+      <title>6. 开篇 - 标准库源码分析《 刻意学习 Golang 》</title>
+      <link>http://example.org/post/dev/6.opening-standard-library-source-code-analysis-deliberately-learning-golang/</link>
+      <pubDate>Mon, 18 Mar 2019 01:41:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/6.opening-standard-library-source-code-analysis-deliberately-learning-golang/</guid>
+      <description>golang 基础的语法特性基本已经学完了，这几天我一直在思考下一步的学习方向跟计划。有很多方向可以选择比如：可以学习 web 编程、网络编程，往应用方向学习等</description>
+    </item>
+    
+    <item>
+      <title>5. 并发神奇——协程 |《 刻意学习 Golang 》</title>
+      <link>http://example.org/post/dev/5.concurrency-magic-coroutine--deliberately-learning-golang/</link>
+      <pubDate>Tue, 12 Mar 2019 01:31:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/5.concurrency-magic-coroutine--deliberately-learning-golang/</guid>
+      <description>先简单梳理一下，下面要讲的内容吧，看完 Go 的并发之后 脑子里就一个东西 『协程』。进程下面有线程、线程下面有协程。准备找个时间翻译几篇官方博客讲 Go</description>
+    </item>
+    
+    <item>
+      <title>（译）反射的法则  | 《 The Go Blog 》</title>
+      <link>http://example.org/post/dev/the-law-of-reflection--the-go-blog/</link>
+      <pubDate>Sat, 09 Mar 2019 19:25:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/the-law-of-reflection--the-go-blog/</guid>
+      <description>第一次翻译，英文不好，欢迎指正，争取有时间多看 &amp;amp; 翻译一些外文文章。在翻译过程中发现了很多的官方技术博客，讲得都很 nice ！有时间了继续译过来。 译者</description>
+    </item>
+    
+    <item>
+      <title>4. 黑科技 Interface  |《 刻意学习 Golang 》</title>
+      <link>http://example.org/post/dev/4.black-technology-interface--deliberately-learning-golang/</link>
+      <pubDate>Sat, 09 Mar 2019 01:27:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/4.black-technology-interface--deliberately-learning-golang/</guid>
+      <description>看完 Go 的 Interface 后，整体感觉这不是我认识的 Interface，有很多新东西跟黑科技。下面通过对比 PHP以及 demo 来进行理解。 PHP 有构造函数、很多魔术方法</description>
+    </item>
+    
+    <item>
+      <title>3. Struct 与 面向对象 |《 刻意学习 Golang 》</title>
+      <link>http://example.org/post/dev/3.-struct-and-object-oriented--deliberately-learning-golang/</link>
+      <pubDate>Fri, 08 Mar 2019 01:33:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/3.-struct-and-object-oriented--deliberately-learning-golang/</guid>
+      <description>go 的变量是 name type, 老是写成 c 的 type name go 的 type name struct c 的typedef struct name struct 对比 PHP: PHP 中没有 struct 类型，这里对比 C 的 struct 支持匿名字段「嵌入字段」 type = c 的 typedef 初始化</description>
+    </item>
+    
+    <item>
+      <title>2. 流程控制 与 函数  |《 刻意学习 Golang 》</title>
+      <link>http://example.org/post/dev/2.-process-control-and-functions--deliberately-learning-golang/</link>
+      <pubDate>Thu, 07 Mar 2019 01:16:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/2.-process-control-and-functions--deliberately-learning-golang/</guid>
+      <description>golang 起源：学习 golang 笔记，看到 @Summer 的刻意练习、每日精进后，收益匪浅。编程就是需要刻意练习。坚持用此方法把 golang 看完。 书写思路说明：对比 php，理解 Go 的特</description>
+    </item>
+    
+    <item>
+      <title>优先队列 二叉堆【数据结构与算法分析 c 语言描述】</title>
+      <link>http://example.org/post/dev/priority-queue-binary-heap-data-structure-and-algorithm-analysis-c-language/</link>
+      <pubDate>Thu, 21 Feb 2019 00:35:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/priority-queue-binary-heap-data-structure-and-algorithm-analysis-c-language/</guid>
+      <description>前言 有段时间没看算法跟数据结构了，今天看了『优先队列』,并写成笔记。 概念 为什么需要优先队列? 在一个队列中的作业，有的时候我们需要优先处理某些</description>
+    </item>
+    
+    <item>
+      <title>记一次 写 CentOS 下 lnmp 一键编译脚本的经历</title>
+      <link>http://example.org/post/dev/lnmp-one-click-compilation-script-under-centos/</link>
+      <pubDate>Wed, 30 Jan 2019 22:04:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/lnmp-one-click-compilation-script-under-centos/</guid>
+      <description>1. 引言 新购的云服务器需要配置 lnmp 环境，想着每次都重头手动编译来一次，太麻烦了效率低下，用别人的又未必符合自己的习惯跟风格，决定自己写一个一键安</description>
+    </item>
+    
+    <item>
+      <title>散列表 ADT 开放地址法解决冲突【数据结构与算法分析 c 语言描述】</title>
+      <link>http://example.org/post/dev/hash-table-adt-open-address-method-to-resolve-conflicts-data-structure-and-algorithm-analysis-c-language/</link>
+      <pubDate>Fri, 25 Jan 2019 11:51:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/hash-table-adt-open-address-method-to-resolve-conflicts-data-structure-and-algorithm-analysis-c-language/</guid>
+      <description>1. 前言 前一节用分离链接法解决了冲突问题，同时该算法也具有自己的缺点。 需要指针，新单元分配地址需要时间，导致速度减慢。 需要实现另一种数据结构（</description>
+    </item>
+    
+    <item>
+      <title>用 symfony/console 组件写命令行脚本</title>
+      <link>http://example.org/post/dev/writing-command-line-scripts-with-the-symfony/console-component/</link>
+      <pubDate>Mon, 21 Jan 2019 22:03:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/writing-command-line-scripts-with-the-symfony/console-component/</guid>
+      <description>前言 php artisan model:create User 这条命令你一定很熟悉。 下面我们就来实现类似的命令。 symfony/console 是什么 首先要明白 symfony/console 是什么? 它是 symfony 里面的一个控制台命令组件，更优秀的事 symfony 的组件</description>
+    </item>
+    
+    <item>
+      <title>伸展树【数据结构与算法分析 c 语言描述】</title>
+      <link>http://example.org/post/dev/splay-tree-data-structure-and-algorithm-analysis-c-language/</link>
+      <pubDate>Mon, 14 Jan 2019 18:59:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/splay-tree-data-structure-and-algorithm-analysis-c-language/</guid>
+      <description>1. 概述 知识点 伸展树的由来 伸展树的概念 伸展树的展开 2. 伸展树的想法由来 二叉搜索树的最坏情况是一个单链表，复杂度为 O(N)。如果发生最坏的情况很少</description>
+    </item>
+    
+    <item>
+      <title>AVL 树【数据结构与算法分析 c 语言描述】</title>
+      <link>http://example.org/post/dev/avl-tree-data-structure-and-algorithm-analysis-c-language/</link>
+      <pubDate>Sun, 13 Jan 2019 03:11:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/avl-tree-data-structure-and-algorithm-analysis-c-language/</guid>
+      <description>1. 概述 主要知识点 AVL 树定义 单旋转（左左单旋转、右右单旋转） 双旋转（左右双旋转、右左双旋转） 2. 什么是 AVL 树 定义 带有平衡条件的二叉查找树。 平衡条件：</description>
+    </item>
+    
+    <item>
+      <title>二叉树 &amp; 二叉查找树 ADT【数据结构与算法分析 c 语言描述】</title>
+      <link>http://example.org/post/dev/binary-tree--binary-search-tree-adt-data-structure-and-algorithm-analysis-c-language/</link>
+      <pubDate>Fri, 28 Dec 2018 23:53:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/binary-tree--binary-search-tree-adt-data-structure-and-algorithm-analysis-c-language/</guid>
+      <description>1. 引言 主要涉及知识点 二叉树的概念。 二叉查找树的概念跟常用操作。 二叉树的遍历（先序遍历、中序遍历、后序遍历、层序遍历）。 其他 队列（层序遍历用到</description>
+    </item>
+    
+    <item>
+      <title>树【数据结构与算法分析 c 语言描述】</title>
+      <link>http://example.org/post/dev/tree-data-structure-and-algorithm-analysis-c-language/</link>
+      <pubDate>Fri, 28 Dec 2018 00:27:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/tree-data-structure-and-algorithm-analysis-c-language/</guid>
+      <description>1. 树的概念 树就是一种非线性的数据结构，其平均复杂度为O(logN)。 2. 实现思路 只需要一个指向第一个节点的指针跟右侧兄弟节点的指针 3. 实现过程 定</description>
+    </item>
+    
+    <item>
+      <title>栈的应用之平衡符号 【数据结构与算法分析 c 语言描述】</title>
+      <link>http://example.org/post/dev/the-balance-symbol-of-the-application-of-the-stack-data-structure-and-algorithm-analysis-c-language/</link>
+      <pubDate>Wed, 26 Dec 2018 18:38:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/the-balance-symbol-of-the-application-of-the-stack-data-structure-and-algorithm-analysis-c-language/</guid>
+      <description>描述 实现思路 读入文件挨个字符遍历直到 \0 识别字符。 遇到 { [ ( 入栈。 遇到 } ] ) ，对比栈顶元素，是否成对，是就弹出，否就报错，栈顶为空也报错。 遍历</description>
+    </item>
+    
+    <item>
+      <title>队列 ADT 【数据结构与算法分析 c 语言描述】</title>
+      <link>http://example.org/post/dev/queue-adt-data-structure-and-algorithm-analysis-c-language/</link>
+      <pubDate>Wed, 26 Dec 2018 00:42:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/queue-adt-data-structure-and-algorithm-analysis-c-language/</guid>
+      <description>1. 队列模型 2. 队列数组实现 数组实现在创建时候需要比链表多传入一个 max_size ,即需要指定数组的长度。 数组存放队列内容，size - 队列长度， front - 队头，re</description>
+    </item>
+    
+    <item>
+      <title>栈 ADT [数据结构与算法分析 c 语言描述]</title>
+      <link>http://example.org/post/dev/stack-adt-data-structure-and-algorithm-analysis-c-language/</link>
+      <pubDate>Mon, 24 Dec 2018 19:07:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/stack-adt-data-structure-and-algorithm-analysis-c-language/</guid>
+      <description>栈模型 后进先出表 栈实现 需要实现 创建空栈 置空栈 入栈 出栈 获取栈顶 销毁栈 链表实现 结构体存放栈元素跟指向栈下一个结构体的指针 入栈 一个新的节点添加到 header-&amp;gt;next,</description>
+    </item>
+    
+    <item>
+      <title>基数排序-单链表实现 [数据结构与算法分析（c 语言描述）]</title>
+      <link>http://example.org/post/dev/cardinality-sorting---singly-linked-list-implementation-data-structure-and-algorithm-analysis-c-language/</link>
+      <pubDate>Sun, 23 Dec 2018 22:37:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/cardinality-sorting---singly-linked-list-implementation-data-structure-and-algorithm-analysis-c-language/</guid>
+      <description>实现思路 基数排序本身是一个：分配-收集 过程 将一组需要排序的数，用链表存储 记为 L 用一组链表的来存放分配的节点 N[0-9] 遍历 L 每个节点分配到对应的 N[0-9] 将 N[0-9]</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法分析（c 语言描述）多项式 ADT 单链表实现</title>
+      <link>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-radix-sorting-array-implementation/</link>
+      <pubDate>Thu, 20 Dec 2018 22:13:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-radix-sorting-array-implementation/</guid>
+      <description>/** * 基数排序数组实现 * 思路: * 基数排序是一个 分配-收集 的过程 * N--需要排序的个数 radix-基数 pos_len 位数 * 其中用二维数组来表示桶[j][N]</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法分析（c 语言描述）多项式 ADT 单链表实现</title>
+      <link>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-implementation-of-polynomial-adt-singly-linked-list/</link>
+      <pubDate>Wed, 19 Dec 2018 22:06:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-implementation-of-polynomial-adt-singly-linked-list/</guid>
+      <description>/** * 多项式-单链表实现 * 思路： * 加法思路：P1(n~0) P2(i~0),假设n&amp;gt;i的(方便描述),P1(n)跟P2(n)比较关系,把大</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法分析（c 语言描述）多项式 ADT 数组实现</title>
+      <link>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-polynomial-adt-array-implementation/</link>
+      <pubDate>Wed, 19 Dec 2018 21:51:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-polynomial-adt-array-implementation/</guid>
+      <description>/** * 多项式 ADT 数组实现 * 思路：以数组的 key 作为多项式的次数, value 作为多项式的系数。Hightpower 作为多项式的最高次数 */ #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;time.h&amp;gt; #include &amp;lt;unistd.h&amp;gt; #define MaxDegree 50</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法分析（c 语言描述）最大子序列和问题</title>
+      <link>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-maximum-subsequence-sum-problem/</link>
+      <pubDate>Fri, 14 Dec 2018 23:45:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-maximum-subsequence-sum-problem/</guid>
+      <description>ps：我怕我发的会打扰到大家，本意只是想记下学习研究过程跟结果，这些很基础的东西，如果打扰到大家的话在底下说下，以后就不发这种了 /** * 给定(可</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法分析（c 语言描述）习题 1.3</title>
+      <link>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-description-exercises-1.3/</link>
+      <pubDate>Fri, 14 Dec 2018 22:08:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-description-exercises-1.3/</guid>
+      <description>/** * 1.3 * 只使用处理I/O的PrintDigit函数，编写一个过程以输出任意实数 * */ #include &amp;lt;stdio.h&amp;gt; #define PrintDigit( Ch ) ( putchar( ( Ch ) + &amp;#39;0&amp;#39; ) ) void print_int(int N); void print_out(double N, int j); int main(void) { // double a,</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法分析（c 语言描述）习题 1.2</title>
+      <link>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-description-exercises-1.2/</link>
+      <pubDate>Fri, 14 Dec 2018 22:04:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-description-exercises-1.2/</guid>
+      <description>/** * 编写一个程序求解字谜游戏问题。 * * 描述：输入是由一些字母和单词构成的二维数组，目标是找出字谜中的单词，这些单词可以是水平、垂直或沿对角线</description>
+    </item>
+    
+    <item>
+      <title>数据结构与算法分析（c 语言描述）习题 1.1</title>
+      <link>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-description-exercises-1.1/</link>
+      <pubDate>Wed, 12 Dec 2018 15:56:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/data-structure-and-algorithm-analysis-c-language-description-exercises-1.1/</guid>
+      <description>/** * 问题描述：编写一个程序解决选择问题。令k = N / 2。画出表格显示你的程序对于N为不同值时的运行时间。 *（设有一组 N 个数确定其中第 k 个最大者</description>
+    </item>
+    
+    <item>
+      <title>swap 跟 fstab</title>
+      <link>http://example.org/post/dev/swap-and-fstab/</link>
+      <pubDate>Mon, 10 Dec 2018 12:01:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/swap-and-fstab/</guid>
+      <description>1 swap 如果系统的物理内存用光了，则会用到swap。系统就会跑得很慢，但仍能运行;如果Swap空间用光了，那么系统就会发生错误。通常会出现“ap</description>
+    </item>
+    
+    <item>
+      <title>Git 服务器 利用 hook 实现自动部署</title>
+      <link>http://example.org/post/dev/git-server-uses-hooks-to-implement-automatic-deployment/</link>
+      <pubDate>Mon, 10 Dec 2018 11:53:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/git-server-uses-hooks-to-implement-automatic-deployment/</guid>
+      <description>git 自动部署 原理 客户端 push 之后会触发 git hook 执行 hook下面的 post-receive 通过 post-receive 执行shell脚本将在 web 目录下拉取项目 实现 s 表示 git 服务器端，c 表示 git 客户端 搭建</description>
+    </item>
+    
+    <item>
+      <title> CentOS SVN 环境搭建配置跟自动部署</title>
+      <link>http://example.org/post/dev/configuration-and-automatic-deployment-in-centos-svn-environment/</link>
+      <pubDate>Fri, 03 Aug 2018 10:19:50 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/configuration-and-automatic-deployment-in-centos-svn-environment/</guid>
+      <description>一. 安装subversion并创建版本库 1.安装subversion yum -y install subversion 安装成功后查看版本号： svnserve --version 2. 创建版本库 a.创建目录 mkdir /var/svn b.创建版</description>
+    </item>
+    
+    <item>
+      <title>散列表 ADT 分离链接法【数据结构与算法分析 c 语言描述】</title>
+      <link>http://example.org/post/dev/hash-table-adt-separate-chaining-method-data-structure-and-algorithm-analysis-c-language/</link>
+      <pubDate>Sun, 23 Jan 2011 18:04:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/hash-table-adt-separate-chaining-method-data-structure-and-algorithm-analysis-c-language/</guid>
+      <description>1. 前言 前面看了 链表 ADT 栈 ADT 队列 ADT 树 ADT 各自 ADT 都有自己特有的优势跟劣势以及应用场景，散列表也不例外。 散列表 常数平均时间执行插入、查找、删除操作。不</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://example.org/post/dev/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/dev/readme/</guid>
+      <description>About 交易有段时间了，现在有机会开始真正去打开交易世界的大门，想了很久还是那句话 知识输出是最好的学习方式 为学日益，为道日损 所以决定把系统性的学习</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://example.org/post/trading/trading-bible/01_get-start/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/trading-bible/01_get-start/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://example.org/post/trading/trading-bible/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/trading-bible/readme/</guid>
+      <description>About 这里是《交易的圣经》阅读总结 书写风格 简单梳理内容的核心逻辑 筛选出重要的概念跟关键词 中间通过推导或者例子尝试解释 融入自己的思考终结得到结论 不</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://example.org/post/trading/trading-system/1_capital-management/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/trading-system/1_capital-management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://example.org/post/trading/trading-system/3_operating-system/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/trading-system/3_operating-system/</guid>
+      <description>写在前面 这里主要介绍操作系统的定义以及运行的规则 你应该明白的 研究预期 为预期找损位 计算头寸规模 入场 离场 盈利离场 止损离场 特别注意 操作系统严重依赖</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://example.org/post/trading/trading-system/4_keepping-improve/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/trading-system/4_keepping-improve/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://example.org/post/trading/trading-system/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/trading/trading-system/readme/</guid>
+      <description>概述 这里是交易系统部分 目录 资金管理系统 研判系统 操作系统 持续改进 作者 Jerr 2273716951@qq.com 版权 本系列文章采用《CC 协议 协议》转载必须注明作者和文本链接</description>
+    </item>
+    
   </channel>
 </rss>

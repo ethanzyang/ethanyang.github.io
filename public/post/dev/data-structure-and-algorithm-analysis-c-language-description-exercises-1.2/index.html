@@ -1,0 +1,320 @@
+<!DOCTYPE html> 
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"><meta name="msapplication-TileColor" content="#1793d0">
+  <meta name="theme-color" content="#1793d0"><title>数据结构与算法分析（c 语言描述）习题 1.2 | Jerrkill - 为学日益为道日损</title>
+  <meta property="og:title" content="数据结构与算法分析（c 语言描述）习题 1.2 - Jerrkill - 为学日益为道日损">
+  <meta property="og:type" content="article">
+  
+  <meta property="article:published_time" content="2018-12-14T22:04:00&#43;08:00">
+  
+  
+  <meta property="article:modified_time" content="2018-12-14T22:04:00&#43;08:00">
+  
+  <meta name="keywords" content="Blog, Golang, PHP, blockchain, trading, life">
+  <meta name="description" content="数据结构与算法分析（c 语言描述）习题 1.2"><meta name="author" content="">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="stylesheet" type="text/css" href="/css/hulga.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/hulga-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="/manifest.json">
+</head><body>
+  <div id="main"><section class="hero is-primary shadow-hero ">
+  <div class="hero-head">
+    <nav class="navbar is-primary">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item " href="/">
+        Jerrkill - 为学日益为道日损
+      </a>
+      <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-end">
+        
+        <a class="navbar-item" href="/" title="index">首页</a>
+        
+        <a class="navbar-item" href="/archives/" title="archives">归档</a>
+        
+        <a class="navbar-item" href="/about/" title="about">关于</a>
+        
+        <a class="navbar-item" href="/tags/" title="tags">标签</a>
+        
+        <a class="navbar-item" href="/categories/" title="categories">类别</a>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+  </div>
+  <div class="hero-body">
+    <header class="container has-text-centered">
+      <h1 class="title post-title">
+        数据结构与算法分析（c 语言描述）习题 1.2
+      </h1>
+      <h2 class="subtitle"><time class="post-meta">2018/12/14</time> ・
+          
+            <span class="post-tag post-meta">
+              <a href="/categories/dev">Dev</a>
+            </span>
+          
+        </h2>
+      
+      <div class="tagbox post-meta">
+        
+        <span class="post-tag">
+          <a href="/tags/c">#c</a>
+        </span>
+        
+        <span class="post-tag">
+          <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90">#数据结构与算法分析</a>
+        </span>
+        
+      </div>
+      
+    </header>
+  </div>
+</section><section class="section">
+  <div class="container">
+    <div class="columns">
+      
+      <div class="column is-three-fifths is-offset-one-fifth">
+      
+        <article class="content" id="post-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 编写一个程序求解字谜游戏问题。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 描述：输入是由一些字母和单词构成的二维数组，目标是找出字谜中的单词，这些单词可以是水平、垂直或沿对角线以任何方向放置。找出二维数组中所有的单词
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 字典
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">char</span> <span class="n">puzzle</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="sc">&#39;t&#39;</span><span class="p">,</span><span class="sc">&#39;h&#39;</span><span class="p">,</span><span class="sc">&#39;i&#39;</span><span class="p">,</span><span class="sc">&#39;s&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="sc">&#39;w&#39;</span><span class="p">,</span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="sc">&#39;t&#39;</span><span class="p">,</span><span class="sc">&#39;s&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="sc">&#39;o&#39;</span><span class="p">,</span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="sc">&#39;h&#39;</span><span class="p">,</span><span class="sc">&#39;g&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="sc">&#39;f&#39;</span><span class="p">,</span><span class="sc">&#39;g&#39;</span><span class="p">,</span><span class="sc">&#39;g&#39;</span><span class="p">,</span><span class="sc">&#39;t&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 单词
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">char</span> <span class="o">*</span><span class="n">dict</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#34;this&#34;</span><span class="p">,</span> <span class="s">&#34;tow&#34;</span><span class="p">,</span> <span class="s">&#34;fat&#34;</span><span class="p">,</span> <span class="s">&#34;that&#34;</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">word_exist</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">direction</span><span class="p">,</span> <span class="kt">int</span> <span class="n">strlen</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">word</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">word</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">strlen</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="n">direction</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">direction</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="n">direction</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="p">(</span><span class="n">strlen</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">strlen</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">strlen</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="p">(</span><span class="n">word_exist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">strlen</span><span class="p">,</span> <span class="n">word</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;word:%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">word</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 查找单词
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">word_exist</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">direction</span><span class="p">,</span> <span class="kt">int</span> <span class="n">strlen</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">word</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 单词长度从2开始分别向不同方向去找
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">char</span> <span class="n">sword</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">strlen</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sword</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">puzzle</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sword</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//遍历规则
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">switch</span> <span class="p">(</span><span class="n">direction</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>     <span class="c1">//从左往右
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">y</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>     <span class="c1">//从右往左
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">y</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>     <span class="c1">//从上往下
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">x</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>     <span class="c1">//从下往上
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">x</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>     <span class="c1">//从左上往右下
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">y</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">x</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="mi">5</span><span class="o">:</span>     <span class="c1">//从右下往左上
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">y</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">x</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="mi">6</span><span class="o">:</span>     <span class="c1">//从右上往左下
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">y</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">x</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="mi">7</span><span class="o">:</span>     <span class="c1">//从左下往右上
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">y</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">x</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Direction error&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">sword</span><span class="p">,</span> <span class="n">dict</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">strcpy</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">dict</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 与词典比较
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">sword</span><span class="p">,</span> <span class="n">dict</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">strcpy</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">dict</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></article>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+  </div><footer class="footer">
+  <div class="content has-text-centered">
+    <p>Powered by <a href="https://gohugo.io">Hugo</a>. Theme <a href="https://www.github.com/wlh320/hugo-theme-hulga">Hulga</a></p>
+    <p>Copyright © 2020 wlh. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+
+
+<script src="http://example.org/js/pwa.min.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script><script>
+addBackToTop({
+  diameter: 42,
+
+  backgroundColor: "#1793d0",
+
+  innerHTML: '<svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>',
+  textColor: '#fff'
+});
+</script>
+<script type="text/javascript">
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    
+    if ($navbarBurgers.length > 0) {
+      
+      $navbarBurgers.forEach(el => {
+        el.addEventListener('click', () => {
+          
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+          
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+  <link id="hlcss" rel="stylesheet" type="text/css">
+
+<script>
+  function addCss(url) {
+    var link = document.getElementById('hlcss');
+    link.href = url;
+  }
+  
+  var darkcss = "http://example.org/css/monokai.css"
+  
+  var lightcss = "http://example.org/css/monokailight.css"
+  
+  if (window.matchMedia('(prefers-color-scheme)').media === 'not all') {
+    addCss(lightcss);
+  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    addCss(darkcss);
+  } else {
+    addCss(lightcss);
+  }
+  window.matchMedia("(prefers-color-scheme: dark)").addListener(
+    e => e.matches && addCss(darkcss)
+  );
+  window.matchMedia("(prefers-color-scheme: light)").addListener(
+    e => e.matches && addCss(lightcss)
+  );
+</script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script><script>
+  anchors.options = {
+    placement: 'left',
+    
+    icon: '#'
+  };
+  anchors.add('.content h1, .content h2, .content h3');
+</script>
+
+
+  
+
+
+<link rel="stylesheet" type="text/css" href="http://example.org/css/toc.min.css"><script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.post-toc',
+        
+        contentSelector: '#post-content',
+        
+        headingSelector: 'h1, h2, h3',
+        collapseDepth:  0 ,
+        scrollSmooth: true,
+        positionFixedSelector: '.post-toc',
+        
+        
+        fixedSidebarOffset: 273,
+    });
+</script>
+
+
+</body>
+
+</html>

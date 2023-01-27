@@ -1,0 +1,523 @@
+<!DOCTYPE html> 
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"><meta name="msapplication-TileColor" content="#1793d0">
+  <meta name="theme-color" content="#1793d0"><title>AVL 树【数据结构与算法分析 c 语言描述】 | Jerrkill - 为学日益为道日损</title>
+  <meta property="og:title" content="AVL 树【数据结构与算法分析 c 语言描述】 - Jerrkill - 为学日益为道日损">
+  <meta property="og:type" content="article">
+  
+  <meta property="article:published_time" content="2019-01-13T03:11:00&#43;08:00">
+  
+  
+  <meta property="article:modified_time" content="2019-01-13T03:11:00&#43;08:00">
+  
+  <meta name="keywords" content="Blog, Golang, PHP, blockchain, trading, life">
+  <meta name="description" content="AVL 树【数据结构与算法分析 c 语言描述】"><meta name="author" content="">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="stylesheet" type="text/css" href="/css/hulga.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/hulga-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="/manifest.json">
+</head><body>
+  <div id="main"><section class="hero is-primary shadow-hero ">
+  <div class="hero-head">
+    <nav class="navbar is-primary">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item " href="/">
+        Jerrkill - 为学日益为道日损
+      </a>
+      <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-end">
+        
+        <a class="navbar-item" href="/" title="index">首页</a>
+        
+        <a class="navbar-item" href="/archives/" title="archives">归档</a>
+        
+        <a class="navbar-item" href="/about/" title="about">关于</a>
+        
+        <a class="navbar-item" href="/tags/" title="tags">标签</a>
+        
+        <a class="navbar-item" href="/categories/" title="categories">类别</a>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+  </div>
+  <div class="hero-body">
+    <header class="container has-text-centered">
+      <h1 class="title post-title">
+        AVL 树【数据结构与算法分析 c 语言描述】
+      </h1>
+      <h2 class="subtitle"><time class="post-meta">2019/01/13</time> ・
+          
+            <span class="post-tag post-meta">
+              <a href="/categories/dev">Dev</a>
+            </span>
+          
+        </h2>
+      
+      <div class="tagbox post-meta">
+        
+        <span class="post-tag">
+          <a href="/tags/c">#c</a>
+        </span>
+        
+        <span class="post-tag">
+          <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90">#数据结构与算法分析</a>
+        </span>
+        
+      </div>
+      
+    </header>
+  </div>
+</section><section class="section">
+  <div class="container">
+    <div class="columns">
+      
+      <div class="column is-1 is-hidden-mobile"></div>
+      <div class="column is-8">
+      
+        <article class="content" id="post-content"><h2 id="1-概述">1. 概述</h2>
+<blockquote>
+<p>主要知识点</p>
+</blockquote>
+<ul>
+<li>AVL 树定义</li>
+<li>单旋转（左左单旋转、右右单旋转）</li>
+<li>双旋转（左右双旋转、右左双旋转）</li>
+</ul>
+<h2 id="2-什么是-avl-树">2. 什么是 AVL 树</h2>
+<blockquote>
+<p>定义
+带有平衡条件的二叉查找树。
+平衡条件：其每个节点的左子树和右子树的高度最多相差1的二叉查找树。（空树的高度为 -1）。</p>
+</blockquote>
+<ul>
+<li>所有的树操作都可以以时间 O(logN) 执行。</li>
+<li>当插入时有可能会破坏平衡条件，我们通过**旋转（rotation）**来进行修正。</li>
+</ul>
+<h2 id="3-如何解决不平衡情况">3. 如何解决不平衡情况</h2>
+<p>根据 AVL 树的特性可以知道：α 点的两颗子树的高度差2（α 是需要平衡的节点）。
+所以这种不平衡在插入时可能出现的情况如下四种：</p>
+<ol>
+<li>α 的左儿子的左子树进行一次插入。（左左单旋转）</li>
+<li>α 的左儿子的右子树进行一次插入。 （左右双旋转）</li>
+<li>α 的右儿子的左子树进行一次插入。 （右左双旋转）</li>
+<li>α 的右儿子的右子树进行一次插入。 （右右单旋转）</li>
+</ol>
+<p>以上四种情况可以合成两种情况</p>
+<ul>
+<li>1 和 4 是插入发生在外部（左左、右右）单旋转处理。</li>
+<li>2 和 3 是插入发生的内部（左右、右左）双旋转处理。</li>
+</ul>
+<h2 id="4-关于旋转">4. 关于旋转</h2>
+<p>旋转是对树的常用操作，有两个最重要的属性：</p>
+<ul>
+<li>旋转轴</li>
+<li>旋转方向</li>
+</ul>
+<h3 id="41-旋转轴的确定">4.1 旋转轴的确定</h3>
+<ul>
+<li>单旋转：α 的孩子节点。</li>
+<li>双旋转：α 的孙子节点。</li>
+</ul>
+<p>α 为需要平衡的节点即是不满足 AVL 特性的最小树的跟节点。</p>
+<h3 id="42-旋转方向">4.2 旋转方向</h3>
+<ul>
+<li>左左单旋转（顺时针）。</li>
+<li>右右单旋转（逆时针）</li>
+</ul>
+<h3 id="43-单旋转还是双旋转">4.3 单旋转还是双旋转</h3>
+<ul>
+<li>情况 1 和情况 4 用单旋转。</li>
+<li>情况 2 和情况 3 需要用双旋转。</li>
+</ul>
+<p>根据二叉搜索树的特性可以得到（设插入数为 x，旋转轴为 β）</p>
+<ul>
+<li>x 的大小阶于 α 的值与 β 的值之外（即是情况 1 和 4，外部插入）。</li>
+<li>x 的大小阶于 α 的值与 β 的值之间（即是情况 2 和 3，内部插入）。</li>
+</ul>
+<h2 id="5-单旋转">5. 单旋转</h2>
+<p>单旋转：进行一次旋转。
+1、4 的情况需要用到单旋转来修正。
+左左单旋转（顺时针）
+<img src="https://cdn.learnku.com/uploads/images/201901/11/23174/YnRlrnLxCk.png!large" alt="file">
+右右单旋转（逆时针）
+<img src="https://cdn.learnku.com/uploads/images/201901/11/23174/Z7flhGJa9p.png!large" alt="file"></p>
+<h2 id="6-双旋转">6. 双旋转</h2>
+<p>进行两次单旋转。
+2、3 的情况需要用双旋转来修正。
+左右双旋转：先右右单旋转再左左单旋转
+<img src="https://cdn.learnku.com/uploads/images/201901/11/23174/oPmziHguR1.png!large" alt="file">
+右左双旋转：先左左单旋转再右右单旋转
+<img src="https://cdn.learnku.com/uploads/images/201901/11/23174/KwSbri4Dmg.png!large" alt="file"></p>
+<h2 id="7-代码实现">7. 代码实现</h2>
+<p>头文件，核心在 insert 跟旋转，其他实现跟二叉搜索树一样<a href="https://learnku.com/articles/21753">二叉搜索树</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">int</span> <span class="n">element_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">avl_node</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">avl_node</span> <span class="o">*</span><span class="n">position</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">avl_node</span> <span class="o">*</span><span class="n">avl_tree</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">avl_tree</span> <span class="nf">make_empty</span><span class="p">(</span><span class="n">avl_tree</span> <span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">position</span> <span class="nf">find</span><span class="p">(</span><span class="n">element_type</span> <span class="n">x</span><span class="p">,</span> <span class="n">avl_tree</span> <span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">position</span> <span class="nf">find_min</span><span class="p">(</span><span class="n">avl_tree</span> <span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">position</span> <span class="nf">find_max</span><span class="p">(</span><span class="n">avl_tree</span> <span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">avl_tree</span> <span class="nf">insert</span><span class="p">(</span><span class="n">element_type</span> <span class="n">x</span><span class="p">,</span> <span class="n">avl_tree</span> <span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">avl_tree</span> <span class="nf">delete</span><span class="p">(</span><span class="n">element_type</span> <span class="n">x</span><span class="p">,</span> <span class="n">avl_tree</span> <span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">element_type</span> <span class="nf">retrieve</span><span class="p">(</span><span class="n">position</span> <span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">position</span> <span class="nf">single_rotate_with_left_left</span><span class="p">(</span><span class="n">position</span> <span class="n">k2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">position</span> <span class="nf">single_rotate_with_right_right</span><span class="p">(</span><span class="n">position</span> <span class="n">k2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">position</span> <span class="nf">double_rotate_with_left_right</span><span class="p">(</span><span class="n">position</span> <span class="n">k3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">position</span> <span class="nf">double_rotate_with_right_left</span><span class="p">(</span><span class="n">position</span> <span class="n">k3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">height</span><span class="p">(</span><span class="n">position</span> <span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">max</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">avl_tree</span> <span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">test</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">avl_node</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">element_type</span> <span class="n">element</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">avl_tree</span> <span class="n">left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">avl_tree</span> <span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">height</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>所有代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * AVL树
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;avltree.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define error(str) fatal_error(str)
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define fatal_error(str) fprintf(stderr, &#34;%s\n&#34;, str),exit(1)
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">height</span><span class="p">(</span><span class="n">position</span> <span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">height</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">position</span> <span class="nf">find</span><span class="p">(</span><span class="n">element_type</span> <span class="n">x</span><span class="p">,</span> <span class="n">avl_tree</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">position</span> <span class="nf">find_min</span><span class="p">(</span><span class="n">avl_tree</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">!=</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">!=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">position</span> <span class="nf">find_max</span><span class="p">(</span><span class="n">avl_tree</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">find_max</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">avl_tree</span> <span class="nf">delete</span><span class="p">(</span> <span class="n">element_type</span> <span class="n">x</span><span class="p">,</span> <span class="n">avl_tree</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">position</span> <span class="n">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">error</span><span class="p">(</span><span class="s">&#34;empty tree&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">delete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">delete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">&amp;&amp;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">temp</span> <span class="o">=</span> <span class="n">find_min</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">delete</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">temp</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">free</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">temp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">avl_tree</span> <span class="nf">make_empty</span><span class="p">(</span><span class="n">avl_tree</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">!=</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">make_empty</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">make_empty</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">free</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">avl_tree</span> <span class="nf">insert</span><span class="p">(</span><span class="n">element_type</span> <span class="n">x</span><span class="p">,</span> <span class="n">avl_tree</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">avl_tree</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">avl_node</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fatal_error</span><span class="p">(</span><span class="s">&#34;out of space&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">element</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">height</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span> <span class="p">(</span> <span class="n">height</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="o">-</span> <span class="n">height</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">t</span> <span class="o">=</span> <span class="n">single_rotate_with_left_left</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">t</span> <span class="o">=</span> <span class="n">double_rotate_with_left_right</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span> <span class="p">(</span> <span class="n">height</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="o">-</span> <span class="n">height</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">t</span> <span class="o">=</span> <span class="n">single_rotate_with_right_right</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">t</span> <span class="o">=</span> <span class="n">double_rotate_with_right_left</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//节点高度为 左右节点高度最大值 + 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">t</span><span class="o">-&gt;</span><span class="n">height</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">height</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">),</span> <span class="n">height</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 左左单旋转
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">position</span> <span class="nf">single_rotate_with_left_left</span><span class="p">(</span><span class="n">position</span> <span class="n">k2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">position</span> <span class="n">k1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k1</span> <span class="o">=</span> <span class="n">k2</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k2</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">k1</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k1</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">k2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k1</span><span class="o">-&gt;</span><span class="n">height</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span> <span class="n">height</span><span class="p">(</span><span class="n">k1</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">),</span> <span class="n">height</span><span class="p">(</span><span class="n">k1</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k2</span><span class="o">-&gt;</span><span class="n">height</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span> <span class="n">height</span><span class="p">(</span><span class="n">k2</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">),</span> <span class="n">height</span><span class="p">(</span><span class="n">k2</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">k1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 右右单旋转
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">position</span> <span class="nf">single_rotate_with_right_right</span><span class="p">(</span><span class="n">position</span> <span class="n">k2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">position</span> <span class="n">k1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k1</span> <span class="o">=</span> <span class="n">k2</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k2</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">k1</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k1</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">k2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k1</span><span class="o">-&gt;</span><span class="n">height</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span> <span class="n">height</span><span class="p">(</span><span class="n">k1</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">),</span> <span class="n">height</span><span class="p">(</span><span class="n">k1</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k2</span><span class="o">-&gt;</span><span class="n">height</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span> <span class="n">height</span><span class="p">(</span><span class="n">k2</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">),</span> <span class="n">height</span><span class="p">(</span><span class="n">k2</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">k1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 左右双旋转
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">position</span> <span class="nf">double_rotate_with_left_right</span><span class="p">(</span><span class="n">position</span> <span class="n">k3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k3</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">single_rotate_with_right_right</span><span class="p">(</span><span class="n">k3</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">single_rotate_with_left_left</span><span class="p">(</span><span class="n">k3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 右左双旋转
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">position</span> <span class="nf">double_rotate_with_right_left</span><span class="p">(</span><span class="n">position</span> <span class="n">k3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k3</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">single_rotate_with_left_left</span><span class="p">(</span><span class="n">k3</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">single_rotate_with_right_right</span><span class="p">(</span><span class="n">k3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">max</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">print_tree</span><span class="p">(</span><span class="kt">int</span> <span class="n">depth</span><span class="p">,</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="n">avl_tree</span> <span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">left</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;    &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">element</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print_tree</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">left</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print_tree</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">test</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">avl_tree</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s"> ====== test for building the AVLTree ====== </span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s"> [the left-left single rotate case] test with inserting 3, 2, 1 in trun </span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">t</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">t</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>   
+</span></span><span class="line"><span class="cl">    <span class="n">t</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>   
+</span></span><span class="line"><span class="cl">    <span class="n">t</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>   
+</span></span><span class="line"><span class="cl">    <span class="n">print_tree</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">test</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="8-测试截图">8. 测试截图</h2>
+<p><img src="https://cdn.learnku.com/uploads/images/201901/13/23174/43TVcwLqIT.png!large" alt="file">
+最后附上一个讲单双旋转讲得很好的文章
+<a href="https://blog.csdn.net/pacosonswjtu/article/details/50522677">单双旋转详解</a></p>
+</article>
+      </div>
+      
+      <div class="column is-hidden-mobile">
+        <div class="sidebar" id="toc">
+          
+          <div class="post post-toc" id="post-toc">
+            
+          </div>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+  </div><footer class="footer">
+  <div class="content has-text-centered">
+    <p>Powered by <a href="https://gohugo.io">Hugo</a>. Theme <a href="https://www.github.com/wlh320/hugo-theme-hulga">Hulga</a></p>
+    <p>Copyright © 2020 wlh. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+
+
+<script src="http://example.org/js/pwa.min.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script><script>
+addBackToTop({
+  diameter: 42,
+
+  backgroundColor: "#1793d0",
+
+  innerHTML: '<svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>',
+  textColor: '#fff'
+});
+</script>
+<script type="text/javascript">
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    
+    if ($navbarBurgers.length > 0) {
+      
+      $navbarBurgers.forEach(el => {
+        el.addEventListener('click', () => {
+          
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+          
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+  <link id="hlcss" rel="stylesheet" type="text/css">
+
+<script>
+  function addCss(url) {
+    var link = document.getElementById('hlcss');
+    link.href = url;
+  }
+  
+  var darkcss = "http://example.org/css/monokai.css"
+  
+  var lightcss = "http://example.org/css/monokailight.css"
+  
+  if (window.matchMedia('(prefers-color-scheme)').media === 'not all') {
+    addCss(lightcss);
+  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    addCss(darkcss);
+  } else {
+    addCss(lightcss);
+  }
+  window.matchMedia("(prefers-color-scheme: dark)").addListener(
+    e => e.matches && addCss(darkcss)
+  );
+  window.matchMedia("(prefers-color-scheme: light)").addListener(
+    e => e.matches && addCss(lightcss)
+  );
+</script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script><script>
+  anchors.options = {
+    placement: 'left',
+    
+    icon: '#'
+  };
+  anchors.add('.content h1, .content h2, .content h3');
+</script>
+
+
+  
+
+
+<link rel="stylesheet" type="text/css" href="http://example.org/css/toc.min.css"><script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.post-toc',
+        
+        contentSelector: '#post-content',
+        
+        headingSelector: 'h1, h2, h3',
+        collapseDepth:  0 ,
+        scrollSmooth: true,
+        positionFixedSelector: '.post-toc',
+        
+        
+        fixedSidebarOffset: 273,
+    });
+</script>
+
+
+</body>
+
+</html>

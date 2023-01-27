@@ -1,0 +1,375 @@
+<!DOCTYPE html> 
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"><meta name="msapplication-TileColor" content="#1793d0">
+  <meta name="theme-color" content="#1793d0"><title>6. 开篇 - 标准库源码分析《 刻意学习 Golang 》 | Jerrkill - 为学日益为道日损</title>
+  <meta property="og:title" content="6. 开篇 - 标准库源码分析《 刻意学习 Golang 》 - Jerrkill - 为学日益为道日损">
+  <meta property="og:type" content="article">
+  
+  <meta property="article:published_time" content="2019-03-18T01:41:00&#43;08:00">
+  
+  
+  <meta property="article:modified_time" content="2019-03-18T01:41:00&#43;08:00">
+  
+  <meta name="keywords" content="Blog, Golang, PHP, blockchain, trading, life">
+  <meta name="description" content="6. 开篇 - 标准库源码分析《 刻意学习 Golang 》"><meta name="author" content="">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="stylesheet" type="text/css" href="/css/hulga.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/hulga-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="/manifest.json">
+</head><body>
+  <div id="main"><section class="hero is-primary shadow-hero ">
+  <div class="hero-head">
+    <nav class="navbar is-primary">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item " href="/">
+        Jerrkill - 为学日益为道日损
+      </a>
+      <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-end">
+        
+        <a class="navbar-item" href="/" title="index">首页</a>
+        
+        <a class="navbar-item" href="/archives/" title="archives">归档</a>
+        
+        <a class="navbar-item" href="/about/" title="about">关于</a>
+        
+        <a class="navbar-item" href="/tags/" title="tags">标签</a>
+        
+        <a class="navbar-item" href="/categories/" title="categories">类别</a>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+  </div>
+  <div class="hero-body">
+    <header class="container has-text-centered">
+      <h1 class="title post-title">
+        6. 开篇 - 标准库源码分析《 刻意学习 Golang 》
+      </h1>
+      <h2 class="subtitle"><time class="post-meta">2019/03/18</time> ・
+          
+            <span class="post-tag post-meta">
+              <a href="/categories/dev">Dev</a>
+            </span>
+          
+        </h2>
+      
+      <div class="tagbox post-meta">
+        
+        <span class="post-tag">
+          <a href="/tags/golang">#golang</a>
+        </span>
+        
+        <span class="post-tag">
+          <a href="/tags/%E5%88%BB%E6%84%8F%E5%AD%A6%E4%B9%A0golang">#刻意学习Golang</a>
+        </span>
+        
+      </div>
+      
+    </header>
+  </div>
+</section><section class="section">
+  <div class="container">
+    <div class="columns">
+      
+      <div class="column is-1 is-hidden-mobile"></div>
+      <div class="column is-8">
+      
+        <article class="content" id="post-content"><p>golang 基础的语法特性基本已经学完了，这几天我一直在思考下一步的学习方向跟计划。有很多方向可以选择比如：可以学习 web 编程、网络编程，往应用方向学习等待。可是我思前想后还是觉得应用固然很重要，但是扎实的基础对于一个学习者来说更为重要！</p>
+<p>最后确定了：分析标准库的源码。go 一共有 150+ 的包，这是一场长期攻坚战。</p>
+<h2 id="概述">概述</h2>
+<p>为什么选择分析源码包？</p>
+<ul>
+<li>标准库是 go 的核心。</li>
+<li>标准库的使用是必修课，既然要学为何不直接知其所以然。</li>
+<li>站在巨人的肩膀上，「学得多看得远」。</li>
+</ul>
+<p>我认为通过标准库源码的分析可以收获：</p>
+<ul>
+<li>标准库的使用。</li>
+<li>标准库的底层实现。</li>
+<li>学习大神的编码哲学。</li>
+<li>极大的提高编码能力和水平。</li>
+<li>英文水平「源码注释都是英文的」。</li>
+<li>代码分析能力。</li>
+</ul>
+<blockquote>
+<p>能看懂内核里面的代码就是最大的幸福，更不用说修改里面的代码了。</p>
+</blockquote>
+<p>到现在发现 golang 真的很简洁。他的关键字很少，只有 25 个，如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">break</span>    <span class="k">default</span>      <span class="kd">func</span>    <span class="kd">interface</span>    <span class="k">select</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span>     <span class="k">defer</span>        <span class="k">go</span>      <span class="kd">map</span>          <span class="kd">struct</span>
+</span></span><span class="line"><span class="cl"><span class="kd">chan</span>     <span class="k">else</span>         <span class="k">goto</span>    <span class="kn">package</span>      <span class="k">switch</span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span>    <span class="k">fallthrough</span>  <span class="k">if</span>      <span class="k">range</span>        <span class="kd">type</span>
+</span></span><span class="line"><span class="cl"><span class="k">continue</span> <span class="k">for</span>          <span class="kn">import</span>  <span class="k">return</span>       <span class="kd">var</span>
+</span></span></code></pre></div><h2 id="如何分析">如何分析</h2>
+<p>整体将按照如下思路进行</p>
+<ul>
+<li>整理出所有的包以及每个包大概的用途</li>
+<li>以围绕 <code>fmt</code> 包展开。</li>
+<li>首先展开 <code>fmt</code>。 包的依赖，然后对依赖进行逐一分析「类似于执行 fmt 包的加载过程一样」。</li>
+</ul>
+<p>如何对包进行分析?</p>
+<ul>
+<li>翻译注释</li>
+<li>解读源码分析逻辑</li>
+<li>思考与练习包的使用</li>
+<li>如果可以自己尝试实现包</li>
+<li>总结</li>
+</ul>
+<h2 id="所有-package-的集合">所有 Package 的集合</h2>
+<p>下面先大概列出所有的包以及它们的作用「有一些包的介绍来自<a href="https://learnku.com/docs/the-way-to-go/overview-of-the-91-standard-library/3626">《 Go 入门教程 》</a>」</p>
+<ul>
+<li><code>archive/tar</code> 和 <code>/zip-compress</code>：压缩(解压缩)文件功能。</li>
+<li><code>fmt</code>-<code>io</code>-<code>bufio</code>-<code>path/filepath</code>-<code>flag</code>:
+<ul>
+<li><code>fmt</code>: 提供了格式化输入输出功能。</li>
+<li><code>io</code>: 提供了基本输入输出功能，大多数是围绕系统功能的封装。</li>
+<li><code>bufio</code>: 缓冲输入输出功能的封装。</li>
+<li><code>path/filepath</code>: 用来操作在当前系统中的目标文件名路径。</li>
+<li><code>flag</code>: 对命令行参数的操作。　　</li>
+</ul>
+</li>
+<li><code>strings</code>-<code>strconv</code>-<code>unicode</code>-<code>regexp</code>-<code>bytes</code>:
+<ul>
+<li><code>strings</code>: 提供对字符串的操作。</li>
+<li><code>strconv</code>: 提供将字符串转换为基础类型的功能。</li>
+<li><code>unicode</code>: 为 unicode 型的字符串提供特殊的功能。</li>
+<li><code>regexp</code>: 正则表达式功能。</li>
+<li><code>bytes</code>: 提供对字符型分片的操作。</li>
+<li><code>index/suffixarray</code>: 子字符串快速查询。</li>
+</ul>
+</li>
+<li><code>math</code>-<code>math/cmath</code>-<code>math/big</code>-<code>math/rand</code>-<code>sort</code>:
+<ul>
+<li><code>math</code>: 基本的数学函数。</li>
+<li><code>math/cmath</code>: 对复数的操作。</li>
+<li><code>math/rand</code>: 伪随机数生成。</li>
+<li><code>sort</code>: 为数组排序和自定义集合。</li>
+<li><code>math/big</code>: 大数的实现和计算。  　　</li>
+</ul>
+</li>
+<li><code>container</code>-<code>/list-ring-heap</code>: 实现对集合的操作。
+<ul>
+<li><code>list</code>: 双链表。</li>
+<li><code>ring</code>: 环形链表。</li>
+</ul>
+</li>
+<li><code>builtin</code>: 描述了允许 godoc 提供语言标识符的文档。</li>
+<li><code>compress/bzip2</code> <code>/flate</code> <code>/gzip</code> <code>/lzw</code> <code>zlib</code>
+<ul>
+<li><code>compress/bzip2</code>:实现了 bzip2 的解压缩。</li>
+<li><code>flate</code>:实现了 DEFLATE 的数据压缩格式，如 RFC 1951 中所述。</li>
+<li><code>gzip</code>:实现了 gzip 格式压缩文件的读写。</li>
+<li><code>lzw</code>:实现了Lempel-Ziv-Welch压缩数据格式。</li>
+<li><code>zlib</code>:实现了 zlib 数据压缩格式的读写。</li>
+</ul>
+</li>
+<li><code>context</code>:定义了 Context 类型，它跨 API 边界和进程之间携带截止日期，取消信号和其他请求范围的值。</li>
+<li><code>crypto</code> <code>crypto/md5</code>
+<ul>
+<li><code>crypto</code>: 常见的加密常量的集合</li>
+<li><code>crypto/md5</code>: md5 加密</li>
+<li><code>crypto/sha1</code>: sha1 加密</li>
+</ul>
+</li>
+<li><code>errors</code>: 实现了操作错误的方法</li>
+<li><code>expvar</code>: 为通用变量提供标准化接口。</li>
+<li><code>hash</code>: 所有散列函数实现的通用接口。</li>
+<li><code>html</code>: HTML 文本进行转码和转义的功能.</li>
+<li><code>image</code>、<code>/color</code>、<code>/draw</code>、<code>/gif</code> <code>/jpeg</code> <code>png</code>
+<ul>
+<li><code>image</code>: 实现基本的二维图形库.</li>
+<li><code>image/color</code>: 颜色基本库</li>
+<li><code>image/draw</code>:提供图像合成功能</li>
+<li><code>image/gif</code>:gif 图像解码器和编码器</li>
+<li><code>image/jpeg</code>:</li>
+<li><code>image/png</code>:</li>
+</ul>
+</li>
+<li><code>sort</code>: 提供了用于排序切片和用户定义集合的原函数.</li>
+<li><code>unsafe</code>: 包含了一些打破 Go 语言“类型安全”的命令，一般的程序中不会被使用，可用在 C/C++ 程序的调用中。</li>
+<li><code>syscall</code>-<code>os</code>-<code>os/exec</code>:
+<ul>
+<li><code>os</code>: 提供给我们一个平台无关性的操作系统功能接口，采用类Unix设计，隐藏了不同操作系统间差异，让不同的文件系统和操作系统对象表现一致。</li>
+<li><code>os/exec</code>: 提供我们运行外部操作系统命令和程序的方式。</li>
+<li><code>syscall</code>: 底层的外部包，提供了操作系统底层调用的基本接口。</li>
+</ul>
+</li>
+<li><code>time</code>-<code>log</code>:
+<ul>
+<li><code>time</code>: 日期和时间的基本操作。</li>
+<li><code>log</code>: 记录程序运行时产生的日志,我们将在后面的章节使用它。</li>
+</ul>
+</li>
+<li><code>encoding/json</code>-<code>encoding/xml</code>-<code>text/template</code>:
+<ul>
+<li><code>encoding/json</code>: 读取并解码和写入并编码 JSON 数据。</li>
+<li><code>encoding/xml</code>:简单的 XML1.0 解析器。</li>
+<li><code>text/template</code>:生成像 HTML 一样的数据与文本混合的数据驱动。</li>
+</ul>
+</li>
+<li><code>net</code>-<code>net/http</code>:
+<ul>
+<li><code>net</code>: 网络数据的基本操作。</li>
+<li><code>http</code>: 提供了一个可扩展的 HTTP 服务器和基础客户端，解析 HTTP 请求和回复。</li>
+</ul>
+</li>
+<li><code>runtime</code>: Go 程序运行时的交互操作，例如垃圾回收和协程创建。</li>
+<li><code>reflect</code>: 实现通过程序运行时反射，让程序操作任意类型的变量。</li>
+<li><code>sql</code>: 为数据库提供围绕 SQL (或类 SQL) 的通用接口。</li>
+</ul>
+<blockquote>
+<p>整列表可以在 <a href="https://gowalker.org/search?q=gorepos">Go Walker</a> 查看。</p>
+</blockquote>
+<h2 id="总结">总结</h2>
+<p>Go 的包还是挺多的，其实分析源码本身就是一件不容易的事，这时第一步，接下来要坚持下来。以此来驱动我提高编码能力跟代码质量以及英语水平。</p>
+<blockquote>
+<p>最后重要的事情：如有不对或者错误的地方欢迎大家指正，或者意见建议。『初出茅庐、欢迎指点』</p>
+</blockquote>
+</article>
+      </div>
+      
+      <div class="column is-hidden-mobile">
+        <div class="sidebar" id="toc">
+          
+          <div class="post post-toc" id="post-toc">
+            
+          </div>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+  </div><footer class="footer">
+  <div class="content has-text-centered">
+    <p>Powered by <a href="https://gohugo.io">Hugo</a>. Theme <a href="https://www.github.com/wlh320/hugo-theme-hulga">Hulga</a></p>
+    <p>Copyright © 2020 wlh. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+
+
+<script src="http://example.org/js/pwa.min.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script><script>
+addBackToTop({
+  diameter: 42,
+
+  backgroundColor: "#1793d0",
+
+  innerHTML: '<svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>',
+  textColor: '#fff'
+});
+</script>
+<script type="text/javascript">
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    
+    if ($navbarBurgers.length > 0) {
+      
+      $navbarBurgers.forEach(el => {
+        el.addEventListener('click', () => {
+          
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+          
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+  <link id="hlcss" rel="stylesheet" type="text/css">
+
+<script>
+  function addCss(url) {
+    var link = document.getElementById('hlcss');
+    link.href = url;
+  }
+  
+  var darkcss = "http://example.org/css/monokai.css"
+  
+  var lightcss = "http://example.org/css/monokailight.css"
+  
+  if (window.matchMedia('(prefers-color-scheme)').media === 'not all') {
+    addCss(lightcss);
+  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    addCss(darkcss);
+  } else {
+    addCss(lightcss);
+  }
+  window.matchMedia("(prefers-color-scheme: dark)").addListener(
+    e => e.matches && addCss(darkcss)
+  );
+  window.matchMedia("(prefers-color-scheme: light)").addListener(
+    e => e.matches && addCss(lightcss)
+  );
+</script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script><script>
+  anchors.options = {
+    placement: 'left',
+    
+    icon: '#'
+  };
+  anchors.add('.content h1, .content h2, .content h3');
+</script>
+
+
+  
+
+
+<link rel="stylesheet" type="text/css" href="http://example.org/css/toc.min.css"><script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.post-toc',
+        
+        contentSelector: '#post-content',
+        
+        headingSelector: 'h1, h2, h3',
+        collapseDepth:  0 ,
+        scrollSmooth: true,
+        positionFixedSelector: '.post-toc',
+        
+        
+        fixedSidebarOffset: 273,
+    });
+</script>
+
+
+</body>
+
+</html>

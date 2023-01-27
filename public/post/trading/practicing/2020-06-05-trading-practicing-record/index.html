@@ -1,0 +1,416 @@
+<!DOCTYPE html> 
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"><meta name="msapplication-TileColor" content="#1793d0">
+  <meta name="theme-color" content="#1793d0"><title>实盘交易记录 | trading-practicing  | Jerrkill - 为学日益为道日损</title>
+  <meta property="og:title" content="实盘交易记录 | trading-practicing  - Jerrkill - 为学日益为道日损">
+  <meta property="og:type" content="article">
+  
+  <meta property="article:published_time" content="2020-06-05T00:00:00&#43;08:00">
+  
+  
+  <meta property="article:modified_time" content="2020-06-05T00:00:00&#43;08:00">
+  
+  <meta name="keywords" content="Blog, Golang, PHP, blockchain, trading, life">
+  <meta name="description" content="实盘交易记录 | trading-practicing "><meta name="author" content="">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="stylesheet" type="text/css" href="/css/hulga.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/hulga-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="/manifest.json">
+</head><body>
+  <div id="main"><section class="hero is-primary shadow-hero ">
+  <div class="hero-head">
+    <nav class="navbar is-primary">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item " href="/">
+        Jerrkill - 为学日益为道日损
+      </a>
+      <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-end">
+        
+        <a class="navbar-item" href="/" title="index">首页</a>
+        
+        <a class="navbar-item" href="/archives/" title="archives">归档</a>
+        
+        <a class="navbar-item" href="/about/" title="about">关于</a>
+        
+        <a class="navbar-item" href="/tags/" title="tags">标签</a>
+        
+        <a class="navbar-item" href="/categories/" title="categories">类别</a>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+  </div>
+  <div class="hero-body">
+    <header class="container has-text-centered">
+      <h1 class="title post-title">
+        实盘交易记录 | trading-practicing 
+      </h1>
+      <h2 class="subtitle"><time class="post-meta">2020/06/05</time> ・
+          
+            <span class="post-tag post-meta">
+              <a href="/categories/trading">trading</a>
+            </span>
+          
+        </h2>
+      
+      <div class="tagbox post-meta">
+        
+        <span class="post-tag">
+          <a href="/tags/trading">#trading</a>
+        </span>
+        
+        <span class="post-tag">
+          <a href="/tags/trading-practicing">#trading-practicing</a>
+        </span>
+        
+      </div>
+      
+    </header>
+  </div>
+</section><section class="section">
+  <div class="container">
+    <div class="columns">
+      
+      <div class="column is-1 is-hidden-mobile"></div>
+      <div class="column is-8">
+      
+        <article class="content" id="post-content"><h1 id="写在前面">写在前面</h1>
+<p>这是第一次实盘实录过程，我将在这里做具体的说明跟记录以及总结，并且把我的经验作为持续改进新增到我的交易系统中去。</p>
+<ul>
+<li>资金管理策略</li>
+<li>交易计划</li>
+<li>成交记录</li>
+<li>实盘曲线</li>
+<li>总结归纳</li>
+</ul>
+<p>交易品种：ETH/USD</p>
+<h3 id="资金管理策略">资金管理策略</h3>
+<blockquote>
+<p>固定比率资金管理策略</p>
+</blockquote>
+<p>固定比率资金管理的核心：</p>
+<blockquote>
+<p>为自己定制一个增量，只有每个可交易合同数都盈利该增量时候才可以增加合同数，反之需要减少可交易合同数</p>
+</blockquote>
+<ol>
+<li>定制自己的增量</li>
+<li>定义标准化单位一份合同金额</li>
+</ol>
+<p>余额 $800，
+定义：</p>
+<ul>
+<li>一份合同 = 4000U；</li>
+<li>增量：$500</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>余额</th>
+<th>累计盈利</th>
+<th>需要盈利</th>
+<th>可交易合同数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>800</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1300</td>
+<td>500</td>
+<td>500</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2300</td>
+<td>1500</td>
+<td>1000</td>
+<td>3</td>
+</tr>
+<tr>
+<td>4800</td>
+<td>3000</td>
+<td>1500</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<h1 id="2020-05-23">2020-05-23</h1>
+<h2 id="实盘曲线">实盘曲线</h2>
+<p><img src="./resources/01_record_firm-offer.png" alt="收益率曲线"></p>
+<p><img src="./resources/01_firm-offer_funds.png" alt="资金走势"></p>
+<h2 id="交易计划">交易计划</h2>
+<p><img src="https://www.tradingview.com/x/4w992Z4m/" alt="交易计划"></p>
+<p>做多计划：217.16入场 211.00止损
+做空计划：183.66入场 193.07止损</p>
+<p>制定计划委托</p>
+<ul>
+<li>
+<p>做空计划委托</p>
+<ul>
+<li>触发价格：178.560</li>
+</ul>
+</li>
+<li>
+<p>做空止损计划委托</p>
+<ul>
+<li>触发价格：181.888</li>
+</ul>
+</li>
+<li>
+<p>做多计划委托</p>
+<ul>
+<li>触发价格：219.580</li>
+</ul>
+</li>
+<li>
+<p>做多止损计划委托</p>
+<ul>
+<li>触发价格：210.470</li>
+</ul>
+</li>
+</ul>
+<h1 id="2020-05-30">2020-05-30</h1>
+<p>这里快月末了，写个月末总结。</p>
+<h2 id="思考">思考🤔</h2>
+<p>价格一直处在一个大区间几个小区间运动，作为趋势跟踪交易，出现了不断入场不断止损又入场又止损。</p>
+<blockquote>
+<p>亏损源：不断假突破的入场止损。盈利变亏损，我认为或许我应该优化「防守止损」
+我认为我应该优化趋势跟踪交易系统应该减少次数，这样似乎就能减少这种区间震荡假突破带来的亏损。</p>
+</blockquote>
+<p>目前没有想到合适的解决办法，对于区间震荡的假突破产生的入场跟止损带来的亏损按照目前实盘来说是我无法回避必须要解决的一个问题。或许我可能从下面两个方向去思考：</p>
+<ul>
+<li>降低仓位</li>
+<li>优化防守止损</li>
+<li>优化止损位置</li>
+<li>减少交易次数（假突破交易次数,但是只有突破失败后你才知道这是假突破）</li>
+</ul>
+<h3 id="降低仓位">降低仓位</h3>
+<p>「降低仓位」这个应该是一个不错的方案，头寸规模是由资金管理系统决定的（亏损时候降低仓位），资金管理系统面临一个必须解决的问题：目前没有针对亏损到低于本金时候降低头寸规模的管理。
+一开始我认为是没必要的，很重要的一个原因是我很自信我能快速盈利并扩大头寸规模（换句话说我居然自信的以为我太可能在较长时间内处于浮亏状态）。这是一个需要深入思考的问题！</p>
+<blockquote>
+<ul>
+<li>是否有必要在亏损到低于本金时候降低头寸规模？（换句话说:是否有必要在亏损到低于本金的时候进行资金管理。这样说显然就是有必要的！）</li>
+<li>我应该如何管理既要能降低头寸规模以减少亏损同时又要使我拥有较强快速赢回亏损的能力？（降低头寸规模可以减少亏损同时也会降低我赢回亏损的能力如何找到我能接受的平衡点？）</li>
+</ul>
+</blockquote>
+<h3 id="优化防守止损">优化防守止损</h3>
+<p>交易开时候我做了如下判定：
+「趋势开始」判定，同时也做了「趋势失败」的判定，分别对应了「入场价」与「止损价」。
+目前关于「防守止损」的定义：
+在「趋势开始」之后我们会有对于「趋势结束」的判定，每一个「趋势结束」的判定都是一个「防守止损」。</p>
+<blockquote>
+<p>为了简化「趋势成功」没有判定，只要没有判定为「趋势失败」那就是「趋势成功」</p>
+</blockquote>
+<p>但是市场是变化的，是否存在，在我们判定「趋势开始」之后存在一种可能有“新的「趋势失败」的判定并且能反应到一个具体的价格”。所以他也应该成为防守止损的一部分。</p>
+<blockquote>
+<p>「趋势开始」后我应该持续跟踪建立起跟踪「趋势失败」的判定。应该满足一下原则</p>
+</blockquote>
+<ul>
+<li>逻辑简单清晰并且客观（能够杜绝主观臆测）</li>
+<li>尽可能的精（要合理反应「趋势失败」）少（只能有一两个这种「趋势失败」的防守止损位置）</li>
+</ul>
+<p>判定依据（试行需要持续改进和优化）</p>
+<ul>
+<li>关键阻力/压力位置 无法有效突破</li>
+<li>收敛之后的反向突破</li>
+</ul>
+<h3 id="优化止损位置">优化止损位置</h3>
+<p>「优化止损位置」我应该优化止损位置，换句话说我应该优化反应「趋势失败」的价格。我需要去找到具体的清晰的逻辑来完成这件事。做这件事我认为应该需要回答一下问题：</p>
+<ul>
+<li>价格反应「趋势失败」的逻辑是什么？</li>
+<li>是否能做到尽可能的避免掉主观的随机判断？</li>
+</ul>
+<p>目前判定趋势失败（止损价格）的逻辑：</p>
+<ul>
+<li>价格运动回「起涨点(起跌点)」  ——  起涨点/起跌点</li>
+<li>价格跌破/突破原整理区间的下沿/上沿  ——  区间阻力/支撑</li>
+</ul>
+<p>要解决这个问题或许我应该先做：如何定义「假突破」？</p>
+<blockquote>
+<p>价格突破了，又回去了，突破无效是假突破
+如果「假突破」的判定过于严格，我的交易次数就会被大大增加，我没有这么多精力跟时间去时刻跟踪市场。
+所以我应该做出如下定义：
+价格运动到我判定反应「趋势开始」这件事的价格，随后价格再次运动到我判定反应「趋势失败」这件事的价格   ————假突破</p>
+</blockquote>
+<p>主要矛盾变成了<code>我如何优化对「趋势失败」的判定以及它与价格的逻辑关系</code>  （目前没有想到好的解决办法只能先余着）。</p>
+<h3 id="减少交易次数">减少交易次数</h3>
+<blockquote>
+<p>我认为我应该优化趋势跟踪交易系统应该减少次数，这样似乎就能减少这种区间震荡假突破带来的亏损。</p>
+</blockquote>
+<p>当我深入思考上面这个问题时候，确实可以通过减少交易次数来降低亏损，问题在于在「趋势失败」的判定之前你无法知道是真突破还是假突破，你只能假设每次突破都是真突破。否则你可能会错失一场趋势行情，显然这是作为趋势跟踪的交易者无法接受的。或者我可以从其他角度思考</p>
+<p>交易盈亏的来源是波动率，做的就是波动率，我们定义波动率有周期，就跟我们玩游戏的技能 CD 一样，波动率也需要冷却。同时价格运动是市场合力的结果，所以我们先做出如下定义：</p>
+<blockquote>
+<p>一场大波动发生后市场需要进入震荡来使得波动率冷却，以此来酝酿下一次的大波动。
+价格的运动方向是市场合力的结果，当市场的作用力发生分歧的时候市场就会进入区间震荡直到各个作用力产生新的合力推动价格继续向单一方向运动</p>
+</blockquote>
+<p>基于我们对上面两条的认可（理论依据）
+或可通过 移动平均线、真实波动率、量价的收敛 来作预期
+在</p>
+<ul>
+<li>移动平均线走平</li>
+<li>真实波动率冷却</li>
+<li>量价收敛
+的情况下我们判定「趋势开始」后「趋势有效」的权重进行提高，再达到这个条件阀值之前我们应该对于「趋势开始」的判定更为严格(试行)</li>
+</ul>
+<ul>
+<li>入场价在原有基础上 上移（做多）或下移（做空）</li>
+<li>止损价在原有基础上 必须满足区间下沿不能过远，如果过远应该选择不要交易或者移动到入场价下方</li>
+</ul>
+<h2 id="2020-06-05">2020-06-05</h2>
+<h3 id="bch">bch</h3>
+<p>决定再新开一个账户用于交易 bch ， 如下附上交易计划</p>
+<p>(交易计划)[https://www.tradingview.com/x/MPaK1Ich/]</p>
+<blockquote>
+<p>由于仓位较大所以止损的安排上面选择了1个ATR。尽管如此任然只能有8次的交易机会，由于没有针对低于本金后的资金管理，在8次止损后必然面临破产</p>
+</blockquote>
+</article>
+      </div>
+      
+      <div class="column is-hidden-mobile">
+        <div class="sidebar" id="toc">
+          
+          <div class="post post-toc" id="post-toc">
+            
+          </div>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+  </div><footer class="footer">
+  <div class="content has-text-centered">
+    <p>Powered by <a href="https://gohugo.io">Hugo</a>. Theme <a href="https://www.github.com/wlh320/hugo-theme-hulga">Hulga</a></p>
+    <p>Copyright © 2020 wlh. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+
+
+<script src="http://example.org/js/pwa.min.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script><script>
+addBackToTop({
+  diameter: 42,
+
+  backgroundColor: "#1793d0",
+
+  innerHTML: '<svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>',
+  textColor: '#fff'
+});
+</script>
+<script type="text/javascript">
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    
+    if ($navbarBurgers.length > 0) {
+      
+      $navbarBurgers.forEach(el => {
+        el.addEventListener('click', () => {
+          
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+          
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+  <link id="hlcss" rel="stylesheet" type="text/css">
+
+<script>
+  function addCss(url) {
+    var link = document.getElementById('hlcss');
+    link.href = url;
+  }
+  
+  var darkcss = "http://example.org/css/monokai.css"
+  
+  var lightcss = "http://example.org/css/monokailight.css"
+  
+  if (window.matchMedia('(prefers-color-scheme)').media === 'not all') {
+    addCss(lightcss);
+  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    addCss(darkcss);
+  } else {
+    addCss(lightcss);
+  }
+  window.matchMedia("(prefers-color-scheme: dark)").addListener(
+    e => e.matches && addCss(darkcss)
+  );
+  window.matchMedia("(prefers-color-scheme: light)").addListener(
+    e => e.matches && addCss(lightcss)
+  );
+</script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script><script>
+  anchors.options = {
+    placement: 'left',
+    
+    icon: '#'
+  };
+  anchors.add('.content h1, .content h2, .content h3');
+</script>
+
+
+  
+
+
+<link rel="stylesheet" type="text/css" href="http://example.org/css/toc.min.css"><script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.post-toc',
+        
+        contentSelector: '#post-content',
+        
+        headingSelector: 'h1, h2, h3',
+        collapseDepth:  0 ,
+        scrollSmooth: true,
+        positionFixedSelector: '.post-toc',
+        
+        
+        fixedSidebarOffset: 273,
+    });
+</script>
+
+
+</body>
+
+</html>

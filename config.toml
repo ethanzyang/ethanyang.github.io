@@ -1,10 +1,15 @@
 baseURL = 'http://example.org/'
 languageCode = 'zh-cn'
+DefaultContentLanguage = "zh-cn"
 title = 'Jerrkill - 为学日益为道日损'
 enableRobotsTXT = true
 enableEmoji = true
 theme = "hulga"
 hasCJKLanguage = true
+paginate = 10
+[params.social]
+  GitHub = "/jerrkill"
+  Email   = "2273716951@qq.com"
 [params.gitalk]
 owner = "jerrkill"       # 你的GitHub ID       
 repo = "blog"        # 博客网址    
@@ -15,18 +20,18 @@ labels = "gitalk"
   posts = "/:year/:month/:slug/"
 [params]
   # show in HTML meta tag
-  author = "xxx"
-  keywords = "HTML, hugo, CSS"
-  description = "xxx's blog, xxx xx xxxx"
+  author = "jerrkill"
+  keywords = "Blog, Golang, PHP, blockchain, trading, life"
+  description = "jerrkill's blog, dev trading life"
 
   # change bulma's primary color
   primaryColor = "#1793d0"
 
   # subtitle on homepage
-  subtitle = "This is a subtitle"
+  subtitle = "为学日益为道日损"
 
   # copyright text on footer
-  copyright = "Copyright © 2020 wlh. All rights reserved."
+  copyright = "Copyright © 2022 jerrkill. All rights reserved."
 
   # enable katex rendering on every post page, default false
   math = false
@@ -61,6 +66,23 @@ labels = "gitalk"
   # disable jsdelivr cdn, default false
   noCDN = false
 
+[author]
+  name = "jerrkill"
+
+  [params.publisher]
+    name = "jerrkill"
+
+    [params.publisher.logo]
+      url = "logo.png"
+      width = 127
+      height = 40
+
+  [params.logo]
+    url = "logo.png"
+    width = 127
+    height = 40
+
+
 # to enable different hightlight themes in light/dark mode 
 [markup]
   [markup.highlight]
@@ -78,21 +100,24 @@ labels = "gitalk"
     url = "/archives/"
     weight = 2
   [[menu.main]]
-    identifier = "about"
-    name = "关于"
-    url = "/about/"
-    weight = 3
-  [[menu.main]]
     identifier = "tags"
     name = "标签"
     url = "/tags/"
-    weight = 4
+    weight = 3
   [[menu.main]]
     identifier = "categories"
     name = "类别"
     url = "/categories/"
+    weight = 4
+  [[menu.main]]
+    identifier = "about"
+    name = "关于"
+    url = "/about/"
     weight = 5
 
 [taxonomies]
 category = "categories"
 tag = "tags"
+archive = "archives"
+about = "about"
+
