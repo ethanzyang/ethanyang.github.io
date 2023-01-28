@@ -1,0 +1,246 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=msapplication-TileImage content="/ms-icon-144x144.png"><meta name=msapplication-TileColor content="#1793d0"><meta name=theme-color content="#1793d0"><title>4. 黑科技 Interface |《 刻意学习 Golang 》 | Jerrkill - 为学日益为道日损</title><meta property="og:title" content="4. 黑科技 Interface  |《 刻意学习 Golang 》 - Jerrkill - 为学日益为道日损"><meta property="og:type" content="article"><meta property="article:published_time" content="2019-03-09T01:27:00+08:00"><meta property="article:modified_time" content="2019-03-09T01:27:00+08:00"><meta name=keywords content="Blog,Golang,PHP,blockchain,trading,life"><meta name=description content="4. 黑科技 Interface  |《 刻意学习 Golang 》"><meta name=author content><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=96x96 href=/favicon-96x96.png><link rel=icon type=image/png sizes=192x192 href=/android-icon-192x192.png><link rel=apple-touch-icon sizes=57x57 href=/apple-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=/apple-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=/apple-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=/apple-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=/apple-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=/apple-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=/apple-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=/apple-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=/apple-icon-180x180.png><link rel=stylesheet type=text/css href=/css/hulga.min.css><link rel=stylesheet type=text/css href=/css/hulga-dark.min.css media="(prefers-color-scheme: dark)"><link rel=manifest href=/manifest.json></head><body><div id=main><section class="hero is-primary shadow-hero"><div class=hero-head><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a class=navbar-item href=/>Jerrkill - 为学日益为道日损</a>
+<a role=button class=navbar-burger data-target=navMenu aria-label=menu aria-expanded=false><span aria-hidden=true></span>
+<span aria-hidden=true></span>
+<span aria-hidden=true></span></a></div><div class=navbar-menu id=navMenu><div class=navbar-end><a class=navbar-item href=/ title=index>首页</a>
+<a class=navbar-item href=/archives/ title=archives>归档</a>
+<a class=navbar-item href=/tags/ title=tags>标签</a>
+<a class=navbar-item href=/categories/ title=categories>类别</a>
+<a class=navbar-item href=/about/ title=about>关于</a></div></div></div></nav></div><div class=hero-body><header class="container has-text-centered"><h1 class="title post-title">4. 黑科技 Interface |《 刻意学习 Golang 》</h1><h2 class=subtitle><time class=post-meta>2019/03/09</time> ・
+<span class="post-tag post-meta"><a href=/categories/dev>Dev</a></span></h2><div class="tagbox post-meta"><span class=post-tag><a href=/tags/golang>#golang</a></span>
+<span class=post-tag><a href=/tags/%E5%88%BB%E6%84%8F%E5%AD%A6%E4%B9%A0golang>#刻意学习Golang</a></span></div></header></div></section><section class=section><div class=container><div class=columns><div class="column is-1 is-hidden-mobile"></div><div class="column is-8"><article class=content id=post-content><p>看完 Go 的 <code>Interface</code> 后，整体感觉这不是我认识的 <code>Interface</code>，有很多新东西跟黑科技。下面通过对比 PHP以及 demo 来进行理解。
+PHP 有构造函数、很多魔术方法，为什么 Golang 没有？或者说不需要呢
+PHP 对对象初始化赋值 <code>$a = new Human("Jerr", 23);</code> 需要通过构造函数实现
+Go <code>jerr := Human{"Jerr", 23}</code> ，这里是很优秀。
+但是 PHP 的构造函数还可以做一些前置处理，目前还不知道 Go 在这一块怎么解决，可能通过包的 <code>init()</code> ，且学且看</p><p>最后发现 Golang 官方的关于反射讲解的，需要翻墙同时是外文，准备明天「周六」给翻译过来。</p><blockquote><p>译文：<a href=https://learnku.com/articles/25154>（译）反射的法则 | 《 The Go Blog 》</a></p></blockquote><h2 id=interface-是什么>Interface 是什么</h2><p>PHP中:</p><blockquote><p>可以指定某个类必须实现哪些方法，但不需要定义这些方法的具体内容</p></blockquote><p>Interface 定义一个接口类「只有定义,没有实现」，通过 implements 来实现一个或多个接口类中定义的方法「必须实现接口类中的所有方法」</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=c1>// 定义 Human 接口有 run 跟 say 两个方法
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>interface</span> <span class=nx>HumanInterface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=nf>run</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=nf>say</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// 实现 Human 接口 必须实现所有方法 run 与 say
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>class</span> <span class=nc>Human</span> <span class=k>implements</span> <span class=nx>HumanInterface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$age</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=nf>run</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=s1>&#39;I can run&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=nf>say</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=s1>&#39;I can say&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// 歌手
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>class</span> <span class=nc>Singer</span> <span class=k>extends</span> <span class=nx>Human</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$collection</span><span class=p>;</span> <span class=c1>// 专辑
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>public</span> <span class=k>function</span> <span class=nf>sing</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=s1>&#39;I can sing&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// 学生
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>class</span> <span class=nc>Student</span> <span class=k>extends</span> <span class=nx>Human</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$lesson</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=nf>learn</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=s2>&#34;I need learn </span><span class=si>{</span><span class=nv>$lesson</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>Golang 中:</p><blockquote><p>interface 是一组 method 签名的组合，我们通过 interface 来定义对象的一组行为。</p></blockquote><p>简单说 interface 类型定义了一组方法，如果某个对象实现了某个接口的所有方法，则此对象就实现了此接口</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 这里我们用 go 来做上面 php 类似的事情
+</span></span></span><span class=line><span class=cl><span class=c1>// 定义 interface
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>HumanInterface</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nf>Say</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nf>Run</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// 定义 Human 类「结构体」
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Human</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>name</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl>    <span class=nx>age</span> <span class=kt>int</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// 实现 Human 的 Say() 方法
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>h</span> <span class=nx>Human</span><span class=p>)</span> <span class=nf>Say</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;I can say, I am %s, %d years old\n&#34;</span><span class=p>,</span> <span class=nx>h</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span> <span class=nx>h</span><span class=p>.</span><span class=nx>age</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// 实现 Human 的 Run() 方法
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>h</span> <span class=nx>Human</span><span class=p>)</span> <span class=nf>Run</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%s is running\n&#34;</span><span class=p>,</span> <span class=nx>h</span><span class=p>.</span><span class=nx>name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// 歌手
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Singer</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Human</span>
+</span></span><span class=line><span class=cl>    <span class=nx>collecton</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// 歌手的 Sing 方法
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>s</span> <span class=nx>Singer</span><span class=p>)</span> <span class=nf>Sing</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%s can sing %s\n&#34;</span><span class=p>,</span> <span class=nx>s</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span> <span class=nx>s</span><span class=p>.</span><span class=nx>collecton</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tom</span> <span class=o>:=</span> <span class=nx>Singer</span><span class=p>{</span><span class=nx>Human</span><span class=p>{</span><span class=s>&#34;Tom&#34;</span><span class=p>,</span> <span class=mi>22</span><span class=p>},</span> <span class=s>&#34;《Tom专辑歌曲》&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tom</span><span class=p>.</span><span class=nf>Run</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tom</span><span class=p>.</span><span class=nf>Say</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tom</span><span class=p>.</span><span class=nf>Sing</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>你有没有发现 PHP 的 class 通过 implement 来实现 interface 的所有方法。</p><p>而这里 Golang 的 interface 似乎没啥用，甚至一点都没用上，而且你在 Human 里面只实现 run 或者 say 程序都正常运行。如果你对 golang 的 interface 有疑惑，且继续往下看</p><p>要揭开 Golang interface 神秘的面纱，先来了解下 interface 类型跟 interface 值</p><h2 id=interface-的-类型-与-值>interface 的 类型 与 值</h2><blockquote><p>interface 类型定义了一组方法，如果某个对象实现了某个接口的所有方法，则此对象就实现了此接口。</p></blockquote><p>换句话说：如果某个对象实现了某个接口的所有方法,则这些对象属于这个接口「你可理解为对类做了一个分类」</p><ul><li>PHP:接口定义了一系列方法，类显式的去 implement 这个接口并必须实现接口的所有方法</li><li>Golang:接口定义了一组方法，类定义了一组方法，如果类里有接口的所有方法「即类实现了接口」</li></ul><p>更直观的理解：控制器在类手里，我类实现了接口所有的方法我属于你，我也可以不实现所有方法，我就不属于你</p><p>我们再来看 interface 的值，这个更好玩</p><blockquote><p>如果我们定义了一个 interface 的变量，那么这个变量里面可以存实现这个 interface 的任意类型的对象</p></blockquote><p>直接看代码</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 控制权在类手里，所以我们先定义类跟类的方法吧 下面定义的代码基本跟上面的一样 你可以直接看 main 里面的代码
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Human</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>name</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl>    <span class=nx>age</span> <span class=kt>int</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>h</span> <span class=nx>Human</span><span class=p>)</span> <span class=nf>Say</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;I can say, I am %s, %d years old\n&#34;</span><span class=p>,</span> <span class=nx>h</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span> <span class=nx>h</span><span class=p>.</span><span class=nx>age</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>h</span> <span class=nx>Human</span><span class=p>)</span> <span class=nf>Run</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%s is running\n&#34;</span><span class=p>,</span> <span class=nx>h</span><span class=p>.</span><span class=nx>name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Singer</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Human</span>
+</span></span><span class=line><span class=cl>    <span class=nx>collecton</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>s</span> <span class=nx>Singer</span><span class=p>)</span> <span class=nf>Sing</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%s can sing %s\n&#34;</span><span class=p>,</span> <span class=nx>s</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span> <span class=nx>s</span><span class=p>.</span><span class=nx>collecton</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Student</span> <span class=kd>struct</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Human</span>
+</span></span><span class=line><span class=cl>    <span class=nx>lesson</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>s</span> <span class=nx>Student</span><span class=p>)</span> <span class=nf>Learn</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%s nee learn %s\n&#34;</span><span class=p>,</span> <span class=nx>s</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span> <span class=nx>s</span><span class=p>.</span><span class=nx>lesson</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// interface
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Men</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nf>Say</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nf>Run</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tom</span> <span class=o>:=</span> <span class=nx>Singer</span><span class=p>{</span><span class=nx>Human</span><span class=p>{</span><span class=s>&#34;Tom&#34;</span><span class=p>,</span> <span class=mi>22</span><span class=p>},</span> <span class=s>&#34;《Tom专辑歌曲》&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>peter</span> <span class=o>:=</span> <span class=nx>Student</span><span class=p>{</span><span class=nx>Human</span><span class=p>{</span><span class=s>&#34;Perter&#34;</span><span class=p>,</span> <span class=mi>18</span><span class=p>},</span> <span class=s>&#34;《算法与数据结构 C 语言描述》&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>jerrk</span> <span class=o>:=</span> <span class=nx>Human</span><span class=p>{</span><span class=s>&#34;jerrk&#34;</span><span class=p>,</span> <span class=mi>26</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>men</span> <span class=nx>Men</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// men 存 tom
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>men</span> <span class=p>=</span> <span class=nx>tom</span>
+</span></span><span class=line><span class=cl>    <span class=nx>men</span><span class=p>.</span><span class=nf>Say</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nx>men</span><span class=p>.</span><span class=nf>Run</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// men.Sing() 不能调用 Sing() Men 没有 Sing()
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// men 存 peter
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>men</span> <span class=p>=</span> <span class=nx>peter</span>
+</span></span><span class=line><span class=cl>    <span class=nx>men</span><span class=p>.</span><span class=nf>Say</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nx>men</span><span class=p>.</span><span class=nf>Run</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// men.Learn() 同理
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// men 存 jerrk
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>men</span> <span class=p>=</span> <span class=nx>jerrk</span>
+</span></span><span class=line><span class=cl>    <span class=nx>men</span><span class=p>.</span><span class=nf>Say</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=nx>men</span><span class=p>.</span><span class=nf>Run</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>x</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>([]</span><span class=nx>Men</span><span class=p>,</span> <span class=mi>3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 这三个都是不同类型的元素，但是他们实现了 interface 同一个接口
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>x</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=nx>x</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=nx>x</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=p>=</span> <span class=nx>tom</span><span class=p>,</span> <span class=nx>peter</span><span class=p>,</span> <span class=nx>jerrk</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>value</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>x</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>value</span><span class=p>.</span><span class=nf>Say</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=nx>value</span><span class=p>.</span><span class=nf>Run</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><blockquote><p>Go 通过 interface 实现了 duck-typing: 即 &ldquo;当看到一只鸟走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子&rdquo;</p></blockquote><h2 id=空-interface>空 interface</h2><p>空 interface 就是没有任何 method,顺理成章的所有的类型都实现了空 interface，所以空 interface 可以存储任意类型的值类似于 C 的 <code>void *</code> PHP 的 <code>$a</code></p><h2 id=作为函数参数>作为函数参数</h2><p>interface 变量持有任意实现该 interface 类型的对象，所以我们可以通过它对我们的函数参数类型做任何我们想要的扩展
+比如 <code>fmt.Println</code> 可以接收任意类型的数据,</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 源码中 interface 参数的定义
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Stringer</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>     <span class=nf>String</span><span class=p>()</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>默认有个 String 方法的实现，fmt.Println(a) 会调用 <code>a.String()</code> 输入 a, 你可以自己重写 String 来改变默认输出</p><h2 id=变量存储的类型>变量存储的类型</h2><p>interface 的变量刻意存储任意实现了该接口的类的实例，我们通过 <code>Comma-ok 断言</code> <code>switch 测试</code> 反过来知道这个变量里面实际保存了的是哪个类型的对象</p><ul><li>Comman-ok</li><li>switch 测试</li></ul><p>直接看代码</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// value, ok = element.(T)
+</span></span></span><span class=line><span class=cl><span class=c1>// value 就是变量的值，ok 是一个 bool 类型，element 是 interface 变量，T 是断言的类型
+</span></span></span><span class=line><span class=cl><span class=c1>// 空 interface
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Element</span> <span class=kd>interface</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>List</span> <span class=p>[]</span><span class=nx>Element</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Person</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>name</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl>    <span class=nx>age</span> <span class=kt>int</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>list</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=nx>List</span><span class=p>,</span> <span class=mi>3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nx>list</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=p>=</span> <span class=mi>1</span> <span class=c1>// int
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>list</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=p>=</span> <span class=s>&#34;hello&#34;</span>   <span class=c1>// string
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>list</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=p>=</span> <span class=nx>Person</span><span class=p>{</span><span class=s>&#34;Jack&#34;</span><span class=p>,</span> <span class=mi>29</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>list</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=nx>index</span><span class=p>,</span> <span class=nx>element</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>list</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>value</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>element</span><span class=p>.(</span><span class=kt>int</span><span class=p>);</span> <span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;list[%d] is an int and its value is %d\n&#34;</span><span class=p>,</span> <span class=nx>index</span><span class=p>,</span> <span class=nx>value</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=nx>value</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>element</span><span class=p>.(</span><span class=kt>string</span><span class=p>);</span> <span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;list[%d] is an string and its value is %s\n&#34;</span><span class=p>,</span> <span class=nx>index</span><span class=p>,</span> <span class=nx>value</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=nx>value</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>element</span><span class=p>.(</span><span class=nx>Person</span><span class=p>);</span> <span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;list[%d] is an Person and its value is %s\n&#34;</span><span class=p>,</span> <span class=nx>index</span><span class=p>,</span> <span class=nx>value</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Unknow type&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// switch
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>for</span> <span class=nx>index</span><span class=p>,</span> <span class=nx>element</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>list</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>switch</span> <span class=nx>value</span> <span class=o>:=</span> <span class=nx>element</span><span class=p>.(</span><span class=kd>type</span><span class=p>)</span> <span class=p>{</span> <span class=c1>// element.(type) 只能在 switch 内部使用 外部使用 comma-ok
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=k>case</span> <span class=kt>int</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;list[%d] is an int and its value is %d\n&#34;</span><span class=p>,</span> <span class=nx>index</span><span class=p>,</span> <span class=nx>value</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>case</span> <span class=kt>string</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;list[%d] is a string and its value is %s\n&#34;</span><span class=p>,</span> <span class=nx>index</span><span class=p>,</span> <span class=nx>value</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>case</span> <span class=nx>Person</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;list[%d] is a Person and its value is %s\n&#34;</span><span class=p>,</span> <span class=nx>index</span><span class=p>,</span> <span class=nx>value</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>default</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;list[%d] is of a different type&#34;</span><span class=p>,</span> <span class=nx>index</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><blockquote><p>element.(type) 只能在 switch 内部使用 外部使用 comma-ok</p></blockquote><h2 id=嵌入-interface>嵌入 interface</h2><p>Golang 的 interface 跟 struct 的匿名字段一样，可以嵌入到新的 interface 里面「隐式的包含了 被嵌者 里面的 method」</p><p>io 包下面的 io.ReadWriter ，它包含了 io 包下面的 Reader 和 Writer 两个 interface：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// io.ReadWriter
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>ReadWriter</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Reader</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Writer</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h2 id=反射>反射</h2><p>PHP 中也实现了反射，我们先来看一下 PHP 中的反射</p><blockquote><p>PHP 提供了一套强大的反射API，允许你在PHP运行环境中，访问和使用类、方法、属性、参数和注释等，其功能十分强大，经常用于高扩展的PHP框架，自动加载插件，自动生成文档，甚至可以用来扩展PHP语言</p></blockquote><p>反射能做什么？换句话说一个类的反射类能做什么？</p><ul><li>获取类的所有属性</li><li>获取类的所有方法</li><li>获取类的所有常量</li><li>获取类、方法、变量的文档注释</li><li>创建类的示例</li><li>调用指定实例的方法、设置变量</li><li>修改对象的可访问性</li></ul><p>详细可以去看官方文档 <a href=http://php.net/manual/zh/book.reflection.php>PHP 反射</a></p><p>步骤大概可以为</p><ul><li>构建类的反射类</li><li>获取反射类能反射的数据</li><li>通过反射 api 操作「创建实例、调用方法、修改变量&mldr;」</li></ul><p>看如下代码</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-php data-lang=php><span class=line><span class=cl><span class=k>use</span> <span class=nx>ReflectionClass</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=sd>/**
+</span></span></span><span class=line><span class=cl><span class=sd> * @author Jerrk
+</span></span></span><span class=line><span class=cl><span class=sd> */</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Human</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=cm>/*
+</span></span></span><span class=line><span class=cl><span class=cm>     * @var string $name
+</span></span></span><span class=line><span class=cl><span class=cm>     */</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nv>$age</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=nx>__construct</span><span class=p>(</span><span class=nv>$name</span><span class=p>,</span> <span class=nv>$age</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>name</span> <span class=o>=</span> <span class=nv>$name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>age</span> <span class=o>=</span> <span class=nv>$age</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>public</span> <span class=k>function</span> <span class=nf>Say</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>echo</span> <span class=s2>&#34;</span><span class=si>{</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>name</span><span class=si>}</span><span class=s2> can say&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// 构建反射类
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$class</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>ReflectionClass</span><span class=p>(</span><span class=s1>&#39;\Human&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nv>$properties</span> <span class=o>=</span> <span class=nv>$class</span><span class=o>-&gt;</span><span class=na>getProperties</span><span class=p>();</span> <span class=c1>//获取所有属性
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$property</span> <span class=o>=</span> <span class=nv>$class</span><span class=o>-&gt;</span><span class=na>getProperty</span><span class=p>(</span><span class=s1>&#39;name&#39;</span><span class=p>);</span> <span class=c1>// 获取单一属性
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$instance</span> <span class=o>=</span> <span class=nv>$class</span><span class=o>-&gt;</span><span class=na>newInstance</span><span class=p>(</span><span class=s1>&#39;Jerrk&#39;</span><span class=p>,</span> <span class=mi>22</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nv>$class</span><span class=o>-&gt;</span><span class=na>getProperty</span><span class=p>(</span><span class=s1>&#39;name&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>setValue</span><span class=p>(</span><span class=nv>$instance</span><span class=p>,</span> <span class=s1>&#39;Jerr&#39;</span><span class=p>);</span>
+</span></span></code></pre></div><p>Golang</p><blockquote><p>这里需要注意的是 反射只能访问 public 变量不能访问 private,所以要想让反射刻意访问必须大写结构体的变量名</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 反射
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>i</span>  <span class=o>:=</span> <span class=nx>Human</span><span class=p>{</span><span class=s>&#34;Jerrk&#34;</span><span class=p>,</span> <span class=mi>22</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>//t := reflect.TypeOf(&amp;i)    // 得到类型的元数据,通过t我们能获取类型定义里面的所有元素
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>s</span> <span class=o>:=</span> <span class=nx>reflect</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>i</span><span class=p>).</span><span class=nf>Elem</span><span class=p>()</span>   <span class=c1>// 得到实际的值，还可以去改变值
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>typeOfi</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nf>Type</span><span class=p>();</span> <span class=c1>// = reflect.TypeOf(&amp;i) 获取类型
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>f2Name</span> <span class=o>:=</span> <span class=nx>typeOfi</span><span class=p>.</span><span class=nf>Field</span><span class=p>(</span><span class=mi>1</span><span class=p>).</span><span class=nx>Name</span> <span class=c1>// 获取 第二个字段名 Age
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>f2Type</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nf>Field</span><span class=p>(</span><span class=mi>1</span><span class=p>).</span><span class=nf>Type</span><span class=p>()</span> <span class=c1>// 获取第二给字段值的类型 int
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>f2Value</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nf>Field</span><span class=p>(</span><span class=mi>1</span><span class=p>).</span><span class=nf>Interface</span><span class=p>()</span> <span class=c1>// 获取第二给字段的值 22
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=p>&lt;</span> <span class=nx>s</span><span class=p>.</span><span class=nf>NumField</span><span class=p>();</span> <span class=nx>i</span><span class=o>++</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>f</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nf>Field</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%d: %s %s = %v\n&#34;</span><span class=p>,</span> <span class=nx>i</span><span class=p>,</span> <span class=nx>typeOfi</span><span class=p>.</span><span class=nf>Field</span><span class=p>(</span><span class=nx>i</span><span class=p>).</span><span class=nx>Name</span><span class=p>,</span> <span class=nx>f</span><span class=p>.</span><span class=nf>Type</span><span class=p>(),</span> <span class=nx>f</span><span class=p>.</span><span class=nf>Interface</span><span class=p>())</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// 改变值
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>s</span><span class=p>.</span><span class=nf>Field</span><span class=p>(</span><span class=mi>0</span><span class=p>).</span><span class=nf>SetString</span><span class=p>(</span><span class=s>&#34;Peter&#34;</span><span class=p>)</span> <span class=c1>// 现在 Name 变成了 Peter
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>s</span><span class=p>.</span><span class=nf>Field</span><span class=p>(</span><span class=mi>1</span><span class=p>).</span><span class=nf>SetInt</span><span class=p>(</span><span class=mi>44</span><span class=p>)</span> <span class=c1>// 现在 Age 变成了 44
+</span></span></span></code></pre></div><p>对比下来跟 PHP 还是有一些不一样的地方，但是符合反射的定义</p><blockquote><p>reflection is just a mechanism to examine the type and value pair stored inside an interface variable</p></blockquote><blockquote><p>反射是一种检查程序运行时接口变量中的类型和值的机制</p></blockquote><p>更多的反射相关的知识可以去看官方的 <a href=https://blog.golang.org/laws-of-reflection>laws of reflection</a></p><p>同时也可以稍微等一天，我明天把 <a href=https://blog.golang.org/laws-of-reflection>laws of reflection</a> 翻译过来，深入理解 Golang 的 interface 跟 反射</p><blockquote><p>译文：<a href=https://learnku.com/articles/25154>（译）反射的法则 | 《 The Go Blog 》</a></p></blockquote></article></div><div class="column is-hidden-mobile"><div class=sidebar id=toc><div class="post post-toc" id=post-toc></div></div></div></div></div></div></section></div><footer class=footer><div class="content has-text-centered"><p>Powered by <a href=https://gohugo.io>Hugo</a>. Theme <a href=https://www.github.com/wlh320/hugo-theme-hulga>Hulga</a></p><p>Copyright © 2022 jerrkill. All rights reserved.</p></div></footer><script src=http://example.org/js/pwa.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js></script><script>addBackToTop({diameter:42,backgroundColor:"#1793d0",innerHTML:'<svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>',textColor:"#fff"})</script>
+<script type=text/javascript>document.addEventListener("DOMContentLoaded",()=>{const e=Array.prototype.slice.call(document.querySelectorAll(".navbar-burger"),0);e.length>0&&e.forEach(e=>{e.addEventListener("click",()=>{const t=e.dataset.target,n=document.getElementById(t);e.classList.toggle("is-active"),n.classList.toggle("is-active")})})})</script><link id=hlcss rel=stylesheet type=text/css><script>function addCss(e){var t=document.getElementById("hlcss");t.href=e}var darkcss="http://example.org/css/monokai.css",lightcss="http://example.org/css/monokailight.css";window.matchMedia("(prefers-color-scheme)").media==="not all"?addCss(lightcss):addCss(window.matchMedia("(prefers-color-scheme: dark)").matches?darkcss:lightcss),window.matchMedia("(prefers-color-scheme: dark)").addListener(e=>e.matches&&addCss(darkcss)),window.matchMedia("(prefers-color-scheme: light)").addListener(e=>e.matches&&addCss(lightcss))</script><script src=https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js></script><script>anchors.options={placement:"left",icon:"#"},anchors.add(".content h1, .content h2, .content h3")</script>
+<link rel=stylesheet type=text/css href=http://example.org/css/toc.min.css><script src=https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js></script>
+<script>tocbot.init({tocSelector:".post-toc",contentSelector:"#post-content",headingSelector:"h1, h2, h3",collapseDepth:0,scrollSmooth:!0,positionFixedSelector:".post-toc",fixedSidebarOffset:273})</script></body></html>
