@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://jerrkill.github.io/'
 languageCode = 'zh-cn'
 DefaultContentLanguage = "zh-cn"
 title = 'Jerrkill - 为学日益为道日损'
@@ -118,6 +118,4 @@ labels = "gitalk"
 [taxonomies]
 category = "categories"
 tag = "tags"
-archive = "archives"
-about = "about"
 
