@@ -6,3 +6,4 @@ sftp-config.json
 yarn.lock
 .subsplit
 .hugo_build.lock
+gh-*
