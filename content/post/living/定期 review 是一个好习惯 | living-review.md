@@ -91,7 +91,7 @@ draft: false
 
 分享一下策略的回测成绩
 
-[取值一](/images/trading/backtrade/s1_m1_0.png)
+![取值一](/images/trading/backtrade/s1_m1_0.png)
 
 
 
