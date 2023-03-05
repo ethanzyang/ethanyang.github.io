@@ -37,6 +37,9 @@ draft: false
 * 尽量把做的事情都程序化
 * 尽量把做的过程及结果输出总结成文章
 
+
+**过去的一个月**
+
 - [x] 将交易经验标准化建模输出成了三个策略
 - [x] 围绕三个策略做了回测做实盘
 - [x] 为解决震荡行情的资金利用率研发了震荡策略(还在实盘测试V0版本)
@@ -89,9 +92,20 @@ draft: false
 
 这两条准则是一个非常好的准则，让我做的事变得更加清晰，看得到结果的同时也看得到做的过程。
 
+
+![关于过程的记录](/images/trading/living/2023-03-05-living-review.png)
+
+
 分享一下策略的回测成绩
 
-![取值一](/images/trading/backtrade/s1_m1_0.png)
+S1长期趋势跟踪回测数据
+![S1长期趋势跟踪回测数据](/images/trading/backtrade/s1_m1_0.png)
+S2中期趋势跟踪回测数据
+![S2中期趋势跟踪回测数据](/images/trading/backtrade/s2_0.png)
+S3短期趋势跟踪回测数据
+![S3短期趋势跟踪回测数据](/images/trading/backtrade/s3_0.png)
+
+
 
 
 
