@@ -96,7 +96,7 @@ draft: false
 这两条准则是一个非常好的准则，让我做的事变得更加清晰，看得到结果的同时也看得到做的过程。
 
 
-![关于过程的记录](/images/trading/living/2023-03-05-living-review.png)
+![关于过程的记录](/images/living/2023-03-05-living-review.png)
 
 
 分享一下策略的回测成绩
