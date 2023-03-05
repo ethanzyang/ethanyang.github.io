@@ -28,7 +28,7 @@ labels = "gitalk"
   primaryColor = "#1793d0"
 
   # subtitle on homepage
-  subtitle = "愿好运与你同在"
+  subtitle = "时间是最有限的资源，知识是最强大的杠杆。不要用时间交换任何不重要的东西。"
 
   # copyright text on footer
   copyright = "Copyright © 2022 jerrkill. All rights reserved."
