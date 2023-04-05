@@ -1,0 +1,211 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=msapplication-TileImage content="/ms-icon-144x144.png"><meta name=msapplication-TileColor content="#1793d0"><meta name=theme-color content="#1793d0"><title>使用 Hugo 构建自己的博客并自动化部署 | Jerrkill - 为学日益为道日损</title><meta property="og:title" content="使用 Hugo 构建自己的博客并自动化部署 - Jerrkill - 为学日益为道日损"><meta property="og:type" content="article"><meta property="article:published_time" content="2023-04-05T10:28:00+08:00"><meta property="article:modified_time" content="2023-04-05T10:28:00+08:00"><meta name=keywords content="Blog,Golang,PHP,blockchain,trading,life"><meta name=description content="使用 Hugo 构建自己的博客并自动化部署"><meta name=author content><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=96x96 href=/favicon-96x96.png><link rel=icon type=image/png sizes=192x192 href=/android-icon-192x192.png><link rel=apple-touch-icon sizes=57x57 href=/apple-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=/apple-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=/apple-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=/apple-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=/apple-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=/apple-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=/apple-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=/apple-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=/apple-icon-180x180.png><link rel=stylesheet type=text/css href=/css/hulga.min.css><link rel=stylesheet type=text/css href=/css/hulga-dark.min.css media="(prefers-color-scheme: dark)"><link rel=manifest href=/manifest.json></head><body><div id=main><section class="hero is-primary shadow-hero"><div class=hero-head><nav class="navbar is-primary"><div class=container><div class=navbar-brand><a class=navbar-item href=/>Jerrkill - 为学日益为道日损</a>
+<a role=button class=navbar-burger data-target=navMenu aria-label=menu aria-expanded=false><span aria-hidden=true></span>
+<span aria-hidden=true></span>
+<span aria-hidden=true></span></a></div><div class=navbar-menu id=navMenu><div class=navbar-end><a class=navbar-item href=/ title=index>首页</a>
+<a class=navbar-item href=/archives/ title=archives>归档</a>
+<a class=navbar-item href=/tags/ title=tags>标签</a>
+<a class=navbar-item href=/categories/ title=categories>类别</a>
+<a class=navbar-item href=/about/ title=about>关于</a></div></div></div></nav></div><div class=hero-body><header class="container has-text-centered"><h1 class="title post-title">使用 Hugo 构建自己的博客并自动化部署</h1><h2 class=subtitle><time class=post-meta>2023/04/05</time> ・
+<span class="post-tag post-meta"><a href=/categories/dev>Dev</a></span></h2><div class="tagbox post-meta"><span class=post-tag><a href=/tags/dev>#dev</a></span></div></header></div></section><section class=section><div class=container><div class=columns><div class="column is-1 is-hidden-mobile"></div><div class="column is-8"><article class=content id=post-content><h1 id=概述>概述</h1><p>Hugo 构建一个博客网站并结合 Github 实现自动化部署</p><blockquote><p>写是最好的学</p></blockquote><p>个人构建了一套从写到发布的自动化机制，所有的写作都用 markdown 语法，其实如果有时间，可以构建一套自动化发布到多平台的程序。</p><p>当我在本地写完一篇文章时候，我需要 Push 到 Github，然后你的文章会自动化被发布到多个平台: 个人博客，博客社区、公众号、等等。</p><h1 id=install--theme>Install & Theme</h1><h2 id=install>Install</h2><p>Mac</p><pre tabindex=0><code>brew install hugo
+</code></pre><h2 id=new-site>New Site</h2><pre tabindex=0><code>hugo new site quickstart
+cd quickstart
+</code></pre><h2 id=theme>Theme</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>git init
+</span></span><span class=line><span class=cl>git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke themes/ananke
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;theme = &#39;ananke&#39;&#34;</span> &gt;&gt; config.toml
+</span></span><span class=line><span class=cl>hugo server
+</span></span></code></pre></div><blockquote><p>to use postcss, you should have hugo extended version installed, then copy package.json and postcss.config.js to the root of your site folder, then npm install</p></blockquote><p><a href=https://github.com/wlh320/hugo-theme-hulga>Theme Usage</a></p><p>这个主题</p><h1 id=config--writing>Config & Writing</h1><h2 id=configtoml>Config.toml</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=nv>baseURL</span> <span class=o>=</span> <span class=s1>&#39;https://jerrkill.github.io/&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>languageCode</span> <span class=o>=</span> <span class=s1>&#39;zh-cn&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>DefaultContentLanguage</span> <span class=o>=</span> <span class=s2>&#34;zh-cn&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>title</span> <span class=o>=</span> <span class=s1>&#39;Jerrkill - 为学日益为道日损&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>enableRobotsTXT</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=cl><span class=nv>enableEmoji</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=cl><span class=nv>theme</span> <span class=o>=</span> <span class=s2>&#34;hulga&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>hasCJKLanguage</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=cl><span class=nv>paginate</span> <span class=o>=</span> <span class=m>10</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>params.social<span class=o>]</span>
+</span></span><span class=line><span class=cl>  <span class=nv>GitHub</span> <span class=o>=</span> <span class=s2>&#34;/jerrkill&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nv>Email</span>   <span class=o>=</span> <span class=s2>&#34;2273716951@qq.com&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>params.gitalk<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>owner</span> <span class=o>=</span> <span class=s2>&#34;jerrkill&#34;</span>       <span class=c1># 你的GitHub ID       </span>
+</span></span><span class=line><span class=cl><span class=nv>repo</span> <span class=o>=</span> <span class=s2>&#34;blog&#34;</span>        <span class=c1># 博客网址    </span>
+</span></span><span class=line><span class=cl><span class=nv>clientId</span> <span class=o>=</span> <span class=s2>&#34;cf2e140204fdff47bf3c&#34;</span>    <span class=c1># 刚刚记录的client ID      </span>
+</span></span><span class=line><span class=cl><span class=nv>clientSecret</span> <span class=o>=</span> <span class=s2>&#34;bfc9f4bc2de4004a6af295ea89ec53cd693948be&#34;</span> <span class=c1># 刚刚记录的client secret</span>
+</span></span><span class=line><span class=cl><span class=nv>labels</span> <span class=o>=</span> <span class=s2>&#34;gitalk&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>Permalinks<span class=o>]</span>
+</span></span><span class=line><span class=cl>  <span class=nv>posts</span> <span class=o>=</span> <span class=s2>&#34;/:year/:month/:slug/&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>params<span class=o>]</span>
+</span></span><span class=line><span class=cl>  <span class=c1># show in HTML meta tag</span>
+</span></span><span class=line><span class=cl>  <span class=nv>author</span> <span class=o>=</span> <span class=s2>&#34;jerrkill&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nv>keywords</span> <span class=o>=</span> <span class=s2>&#34;Blog, Golang, PHP, blockchain, trading, life&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=nv>description</span> <span class=o>=</span> <span class=s2>&#34;jerrkill&#39;s blog, dev trading life&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># change bulma&#39;s primary color</span>
+</span></span><span class=line><span class=cl>  <span class=nv>primaryColor</span> <span class=o>=</span> <span class=s2>&#34;#1793d0&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># subtitle on homepage</span>
+</span></span><span class=line><span class=cl>  <span class=nv>subtitle</span> <span class=o>=</span> <span class=s2>&#34;时间是最有限的资源，知识是最强大的杠杆。不要用时间交换任何不重要的东西。&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># copyright text on footer</span>
+</span></span><span class=line><span class=cl>  <span class=nv>copyright</span> <span class=o>=</span> <span class=s2>&#34;Copyright © 2022 jerrkill. All rights reserved.&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># enable katex rendering on every post page, default false</span>
+</span></span><span class=line><span class=cl>  <span class=nv>math</span> <span class=o>=</span> <span class=nb>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># enable postcss, mainly for css purge (129kB-&gt;20kB-&gt;4.8kB gzipped, but this makes build slower), default false</span>
+</span></span><span class=line><span class=cl>  <span class=nv>postcss</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># enable showing content summary below post title in home page, default false</span>
+</span></span><span class=line><span class=cl>  <span class=nv>showSummary</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># set paginate on taxonomy term page (tags or categories), default 10</span>
+</span></span><span class=line><span class=cl>  <span class=nv>termPaginate</span> <span class=o>=</span> <span class=m>3</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># enable toc on every post page, default false</span>
+</span></span><span class=line><span class=cl>  <span class=nv>toc</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># enable TOC auto collapse, default false</span>
+</span></span><span class=line><span class=cl>  <span class=nv>autoCollapseToc</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># enable prefers-color-scheme:dark, default false</span>
+</span></span><span class=line><span class=cl>  <span class=nv>darkMedia</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># enable hero section&#39;s is-bold effect, default false</span>
+</span></span><span class=line><span class=cl>  <span class=nv>heroBold</span> <span class=o>=</span> <span class=nb>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># enable hero section that looks like steam deck&#39;s home page, default false</span>
+</span></span><span class=line><span class=cl>  <span class=nv>heroSteamDeck</span> <span class=o>=</span> <span class=nb>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># enable PWA, prepare your icons and DON&#39;T forget to modify manifest.json, default false</span>
+</span></span><span class=line><span class=cl>  <span class=nv>pwa</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># disable jsdelivr cdn, default false</span>
+</span></span><span class=line><span class=cl>  <span class=nv>noCDN</span> <span class=o>=</span> <span class=nb>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>author<span class=o>]</span>
+</span></span><span class=line><span class=cl>  <span class=nv>name</span> <span class=o>=</span> <span class=s2>&#34;jerrkill&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=o>[</span>params.publisher<span class=o>]</span>
+</span></span><span class=line><span class=cl>    <span class=nv>name</span> <span class=o>=</span> <span class=s2>&#34;jerrkill&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=o>[</span>params.publisher.logo<span class=o>]</span>
+</span></span><span class=line><span class=cl>      <span class=nv>url</span> <span class=o>=</span> <span class=s2>&#34;logo.png&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=nv>width</span> <span class=o>=</span> <span class=m>127</span>
+</span></span><span class=line><span class=cl>      <span class=nv>height</span> <span class=o>=</span> <span class=m>40</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=o>[</span>params.logo<span class=o>]</span>
+</span></span><span class=line><span class=cl>    <span class=nv>url</span> <span class=o>=</span> <span class=s2>&#34;logo.png&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>width</span> <span class=o>=</span> <span class=m>127</span>
+</span></span><span class=line><span class=cl>    <span class=nv>height</span> <span class=o>=</span> <span class=m>40</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># to enable different hightlight themes in light/dark mode </span>
+</span></span><span class=line><span class=cl><span class=o>[</span>markup<span class=o>]</span>
+</span></span><span class=line><span class=cl>  <span class=o>[</span>markup.highlight<span class=o>]</span>
+</span></span><span class=line><span class=cl>    <span class=nv>noClasses</span> <span class=o>=</span> <span class=nb>false</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>menu<span class=o>]</span>
+</span></span><span class=line><span class=cl>  <span class=o>[[</span>menu.main<span class=o>]]</span>
+</span></span><span class=line><span class=cl>    <span class=nv>identifier</span> <span class=o>=</span> <span class=s2>&#34;index&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>name</span> <span class=o>=</span> <span class=s2>&#34;首页&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>url</span> <span class=o>=</span> <span class=s2>&#34;/&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>weight</span> <span class=o>=</span> <span class=m>1</span>
+</span></span><span class=line><span class=cl>  <span class=o>[[</span>menu.main<span class=o>]]</span>
+</span></span><span class=line><span class=cl>    <span class=nv>identifier</span> <span class=o>=</span> <span class=s2>&#34;archives&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>name</span> <span class=o>=</span> <span class=s2>&#34;归档&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>url</span> <span class=o>=</span> <span class=s2>&#34;/archives/&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>weight</span> <span class=o>=</span> <span class=m>2</span>
+</span></span><span class=line><span class=cl>  <span class=o>[[</span>menu.main<span class=o>]]</span>
+</span></span><span class=line><span class=cl>    <span class=nv>identifier</span> <span class=o>=</span> <span class=s2>&#34;tags&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>name</span> <span class=o>=</span> <span class=s2>&#34;标签&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>url</span> <span class=o>=</span> <span class=s2>&#34;/tags/&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>weight</span> <span class=o>=</span> <span class=m>3</span>
+</span></span><span class=line><span class=cl>  <span class=o>[[</span>menu.main<span class=o>]]</span>
+</span></span><span class=line><span class=cl>    <span class=nv>identifier</span> <span class=o>=</span> <span class=s2>&#34;categories&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>name</span> <span class=o>=</span> <span class=s2>&#34;类别&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>url</span> <span class=o>=</span> <span class=s2>&#34;/categories/&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>weight</span> <span class=o>=</span> <span class=m>4</span>
+</span></span><span class=line><span class=cl>  <span class=o>[[</span>menu.main<span class=o>]]</span>
+</span></span><span class=line><span class=cl>    <span class=nv>identifier</span> <span class=o>=</span> <span class=s2>&#34;about&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>name</span> <span class=o>=</span> <span class=s2>&#34;关于&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>url</span> <span class=o>=</span> <span class=s2>&#34;/about/&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>weight</span> <span class=o>=</span> <span class=m>5</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>taxonomies<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>category</span> <span class=o>=</span> <span class=s2>&#34;categories&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>tag</span> <span class=o>=</span> <span class=s2>&#34;tags&#34;</span>
+</span></span></code></pre></div><h2 id=补充-关于和归档页面>补充 关于和归档页面</h2><p>new file in content dir</p><p>about.md</p><pre tabindex=0><code>---
+title: &#34;关于本站&#34;
+date: 2023-01-28
+type: about
+---
+
+# Welcome
+
+&gt; 本站是 jerrkill 的个人博客，不定期更新博文，包括但不限于 Dev/Trading/Living/BlockChain
+
+# About Me
+
+TODO
+
+# Contact Me
+
+你可以从一下地方找到我
+
+- [Github](https://www.github.io/jerrkill)
+- [给我发email](mailto:jerrkill123@gmail.com)
+- [TV](https://cn.tradingview.com/u/jerrkill/)
+
+
+# 版权
+
+&gt;本博客系列文章采用《[CC 协议](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.zh-Hans) 协议》转载必须注明作者和文本链接
+</code></pre><p>archives.md</p><pre tabindex=0><code>---
+title: 归档
+description: &#34;Archives&#34;
+type: archives
+---
+</code></pre><h2 id=create-a-new-post>Create a new post</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>hugo new post/living/my-first-post.md
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>hugo server
+</span></span></code></pre></div><h1 id=自动化部署>自动化部署</h1><ol><li><p>创建一个Github账号并登录。在Github上新建一个repository，该repository的名称必须是username.github.io格式，其中username是你的用户名。</p></li><li><p>生成一个Github访问令牌。</p></li></ol><p>在Github中进入Settings -> Developer settings -> Personal access tokens，点击Generate new token按钮。</p><p>为令牌添加名称和权限，勾选repo和workflow两项权限，之后复制访问令牌。</p><ol start=3><li>将访问令牌复制到Github的设置页面中。</li></ol><p>在Github中进入Settings -> Secrets，在这里创建一个名为ACTIONS_DEPLOY_KEY的secret。将步骤4中生成的访问令牌粘贴到secret中即可。</p><ol start=4><li><p>在本地仓库的根目录下，新建一个.github/workflows目录。</p></li><li><p>在.github/workflows目录下，新建一个名为deploy.yml的文件。</p></li><li><p>将以下代码复制到deploy.yml文件中：
+<code>.github/workflows/deploy.yml</code></p></li></ol><pre tabindex=0><code>name: github pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Checkout submodules
+        shell: bash
+        run: |
+          auth_header=&#34;$(git config --local --get http.https://github.com/.extraheader)&#34;
+          git submodule sync --recursive
+          git -c &#34;http.extraheader=$auth_header&#34; -c protocol.version=2 submodule update --init --force --recursive --depth=1
+          npm install
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: &#39;latest&#39;
+          extended: true
+
+      - name: Build
+        run: hugo --gc --minify --cleanDestinationDir
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./public
+          publish_branch: deploy # deploying branch
+</code></pre><ol start=7><li><p>在仓库中选择 Settings (设置) 选项卡。在 Settings 选项卡下，向下滚动直到找到 GitHub Pages 部分。在本部分下，你应该可以看到一个下拉菜单，其中列出了不同的源。将默认的 ”Branch:main” 改为 ”Branch:deploy”，然后点击 Save (保存) 按钮。</p></li><li><p>最后 <code>git push origin master</code> 即可</p></li></ol><h1 id=docs>Docs</h1><p><a href=https://gohugo.io/getting-started/quick-start/>Hugo Usage</a>
+<a href=https://github.com/wlh320/hugo-theme-hulga>Theme Usage</a></p></article></div><div class="column is-hidden-mobile"><div class=sidebar id=toc><div class="post post-toc" id=post-toc></div></div></div></div></div></div></section></div><footer class=footer><div class="content has-text-centered"><p>Powered by <a href=https://gohugo.io>Hugo</a>. Theme <a href=https://www.github.com/wlh320/hugo-theme-hulga>Hulga</a></p><p>Copyright © 2022 jerrkill. All rights reserved.</p></div></footer><script src=https://jerrkill.github.io/js/pwa.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js></script><script>addBackToTop({diameter:42,backgroundColor:"#1793d0",innerHTML:'<svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>',textColor:"#fff"})</script>
+<script type=text/javascript>document.addEventListener("DOMContentLoaded",()=>{const e=Array.prototype.slice.call(document.querySelectorAll(".navbar-burger"),0);e.length>0&&e.forEach(e=>{e.addEventListener("click",()=>{const t=e.dataset.target,n=document.getElementById(t);e.classList.toggle("is-active"),n.classList.toggle("is-active")})})})</script><link id=hlcss rel=stylesheet type=text/css><script>function addCss(e){var t=document.getElementById("hlcss");t.href=e}var darkcss="https://jerrkill.github.io/css/monokai.css",lightcss="https://jerrkill.github.io/css/monokailight.css";window.matchMedia("(prefers-color-scheme)").media==="not all"?addCss(lightcss):addCss(window.matchMedia("(prefers-color-scheme: dark)").matches?darkcss:lightcss),window.matchMedia("(prefers-color-scheme: dark)").addListener(e=>e.matches&&addCss(darkcss)),window.matchMedia("(prefers-color-scheme: light)").addListener(e=>e.matches&&addCss(lightcss))</script><script src=https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js></script><script>anchors.options={placement:"left",icon:"#"},anchors.add(".content h1, .content h2, .content h3")</script>
+<link rel=stylesheet type=text/css href=https://jerrkill.github.io/css/toc.min.css><script src=https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js></script>
+<script>tocbot.init({tocSelector:".post-toc",contentSelector:"#post-content",headingSelector:"h1, h2, h3",collapseDepth:0,scrollSmooth:!0,positionFixedSelector:".post-toc",fixedSidebarOffset:273})</script></body></html>
