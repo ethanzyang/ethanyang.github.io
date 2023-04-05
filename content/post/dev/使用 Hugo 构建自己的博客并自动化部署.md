@@ -1,6 +1,6 @@
 ---
 title: "使用 Hugo 构建自己的博客并自动化部署"
-date: 2023-04-05 10:28:00
+date: 2023-04-05
 slug: "hugo-usage-and-auto-deployment"
 tags: ["dev"]
 categories: [Dev]
