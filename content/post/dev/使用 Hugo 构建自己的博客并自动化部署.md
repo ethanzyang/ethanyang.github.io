@@ -304,5 +304,6 @@ jobs:
 # Docs
 
 [Hugo Usage](https://gohugo.io/getting-started/quick-start/)
+
 [Theme Usage](https://github.com/wlh320/hugo-theme-hulga)
 
