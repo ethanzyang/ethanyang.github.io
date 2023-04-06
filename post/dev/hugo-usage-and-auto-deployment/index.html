@@ -200,7 +200,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./public
           publish_branch: deploy # deploying branch
 </code></pre><ol start=7><li><p>在仓库中选择 Settings (设置) 选项卡。在 Settings 选项卡下，向下滚动直到找到 GitHub Pages 部分。在本部分下，你应该可以看到一个下拉菜单，其中列出了不同的源。将默认的 ”Branch:main” 改为 ”Branch:deploy”，然后点击 Save (保存) 按钮。</p></li><li><p>最后 <code>git push origin master</code> 即可</p></li></ol><h1 id=docs>Docs</h1><p><a href=https://gohugo.io/getting-started/quick-start/>Hugo Usage</a></p><p><a href=https://github.com/wlh320/hugo-theme-hulga>Theme Usage</a></p></article></div><div class="column is-hidden-mobile"><div class=sidebar id=toc><div class="post post-toc" id=post-toc></div></div></div></div></div></div></section></div><footer class=footer><div class="content has-text-centered"><p>Powered by <a href=https://gohugo.io>Hugo</a>. Theme <a href=https://www.github.com/wlh320/hugo-theme-hulga>Hulga</a></p><p>Copyright © 2022 jerrkill. All rights reserved.</p></div></footer><script src=https://jerrkill.github.io/js/pwa.min.js></script>
