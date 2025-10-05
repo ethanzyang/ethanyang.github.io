@@ -6,7 +6,7 @@ type: about
 
 # Welcome
 
-> 本站是 jerrkill 的个人博客，不定期更新博文，包括但不限于 Dev/Trading/Living/BlockChain
+> 本站是 Ethan Yang 的个人博客，不定期更新博文，包括但不限于 Dev/Trading/Living/BlockChain
 
 # About Me
 
@@ -16,7 +16,7 @@ TODO
 
 你可以从一下地方找到我
 
-- [Github](https://www.github.io/jerrkill)
+- [Github](https://www.github.io/ethanzyang)
 - [给我发email](mailto:jerrkill123@gmail.com)
 - [TV](https://cn.tradingview.com/u/jerrkill/)
 
