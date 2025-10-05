@@ -1,17 +1,17 @@
-baseURL = 'https://jerrkill.github.io/'
+baseURL = 'https://ethanzyang.github.io/'
 languageCode = 'zh-cn'
 DefaultContentLanguage = "zh-cn"
-title = 'Jerrkill - 为学日益为道日损'
+title = 'EthanYang - 为学日益为道日损'
 enableRobotsTXT = true
 enableEmoji = true
 theme = "hulga"
 hasCJKLanguage = true
 paginate = 10
 [params.social]
-  GitHub = "/jerrkill"
-  Email   = "2273716951@qq.com"
+  GitHub = "/ethanzyang"
+  Email   = "jerrkill123@gmail.com"
 [params.gitalk]
-owner = "jerrkill"       # 你的GitHub ID       
+owner = "ethanzyang"       # 你的GitHub ID       
 repo = "blog"        # 博客网址    
 clientId = "cf2e140204fdff47bf3c"    # 刚刚记录的client ID      
 clientSecret = "bfc9f4bc2de4004a6af295ea89ec53cd693948be" # 刚刚记录的client secret
@@ -20,9 +20,9 @@ labels = "gitalk"
   posts = "/:year/:month/:slug/"
 [params]
   # show in HTML meta tag
-  author = "jerrkill"
+  author = "ethanzyang"
   keywords = "Blog, Golang, PHP, blockchain, trading, life"
-  description = "jerrkill's blog, dev trading life"
+  description = "ethanzyang's blog, dev trading life"
 
   # change bulma's primary color
   primaryColor = "#1793d0"
@@ -31,7 +31,7 @@ labels = "gitalk"
   subtitle = "时间是最有限的资源，知识是最强大的杠杆。不要用时间交换任何不重要的东西。"
 
   # copyright text on footer
-  copyright = "Copyright © 2022 jerrkill. All rights reserved."
+  copyright = "Copyright © 2022 ethanzyang. All rights reserved."
 
   # enable katex rendering on every post page, default false
   math = false
@@ -67,10 +67,10 @@ labels = "gitalk"
   noCDN = false
 
 [author]
-  name = "jerrkill"
+  name = "EthanYang"
 
   [params.publisher]
-    name = "jerrkill"
+    name = "EthanYang"
 
     [params.publisher.logo]
       url = "logo.png"

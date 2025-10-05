@@ -9,7 +9,7 @@ draft: false
 
 # 1. 引言
 新购的云服务器需要配置 lnmp 环境，想着每次都重头手动编译来一次，太麻烦了效率低下，用别人的又未必符合自己的习惯跟风格，决定自己写一个一键安装的脚本。初出茅庐，欢迎指正，或建议或bug...后面考虑 做一个已经编译好的版本可供直接使用无需编译，以提升部署效率。
-[脚本仓库](https://github.com/jerrkill/centos-lnmp)
+[脚本仓库](https://github.com/ethanzyang/centos-lnmp)
 # 2. 自动脚本实现目标
 * 编译 nginx 并初始化配置
 * 编译 php 并初始化配置
